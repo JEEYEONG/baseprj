@@ -7,5 +7,6 @@ public class SampleVO {
 
     private String userId;
     private String userNm;
+    private String user;
 
 }
