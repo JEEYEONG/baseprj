@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.baseprj.sample.SampleDao">
+    <select id="selectSampleList" resultType="kr.co.baseprj.sample.SampleVO">
+        SELECT USER_ID
+             , USER_NM
+        FROM ST_MNGR
+    </select>
+</mapper>
+

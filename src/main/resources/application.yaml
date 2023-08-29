@@ -1,0 +1,30 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  profiles:
+    active: local
+  devtools:
+    livereload:
+      enabled: true
+  freemarker:
+    cache: false
+
+server:
+  port: 80
+  servlet:
+    session:
+      timeout: 1200m
+
+#local
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+    datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: jdbc:mariadb://114.207.113.160/base_db?allowMultiQueries=true
+      username: base_adm
+      password: baseadm!@#
