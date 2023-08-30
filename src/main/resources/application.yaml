@@ -28,3 +28,9 @@ spring:
       jdbc-url: jdbc:mariadb://114.207.113.160/base_db?allowMultiQueries=true
       username: base_adm
       password: baseadm!@#
+
+mybatis:
+  # mapper 경로 지정
+  mapper-locations: sqls/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
