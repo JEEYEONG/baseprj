@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import kr.co.baseprj.common.CommonWord;
 import kr.co.baseprj.mapper.UserMapper;
 import kr.co.baseprj.vo.user.UserVo;
@@ -41,8 +42,12 @@ public class UserService {
   }
 
   public List<UserVo> userList() {
-    List<UserVo> userList = userMapper.getUserList();
-    return userList;
+    return userMapper.getUserList();
   }
 
+  public UserVo getUserDtl(String userId) {
+    Optional<UserVo> findUser = userMapper.findByUserId(userId);
+    UserVo userVo = findUser.get();
+    return userVo;
+  }
 }

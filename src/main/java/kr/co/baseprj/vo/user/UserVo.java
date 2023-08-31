@@ -3,20 +3,22 @@ package kr.co.baseprj.vo.user;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
+@RequiredArgsConstructor
 public class UserVo {
 
   private String userId; //아이디
   private String userNm; //이름
-  private String authGroupCd; //권한그룹코드 ROOT ADMIN USER
+  private String authGroupCd; //권한그룹코드 등급 ROOT ADMIN USER
   private String secretNum; //비밀번호
   private LocalDateTime regDt; //등록일시
   private LocalDateTime modDt; //수정일시
   private String regrId; //등록자 아이디 currentUser
   private String modrId; //수정자 아이디
   private String delYn; //삭제여부
-  private String userDiv; //사용자 구분 ADMIN USER?
+  private String userDiv; //사용자구분 서울지점
 
   @Builder
   public UserVo(String userId, String userNm, String authGroupCd, String secretNum,
@@ -33,4 +35,5 @@ public class UserVo {
     this.delYn = delYn;
     this.userDiv = userDiv;
   }
+
 }

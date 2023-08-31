@@ -8,9 +8,33 @@
     </insert>
 
     <select id="getUserList" resultType="kr.co.baseprj.vo.user.UserVo">
-        select USER_ID, USER_NM, AUTH_GROUP_CD, SECRET_NUM, REG_DT, MOD_DT, REGR_ID, MODR_ID, DEL_YN, USER_DIV FROM ST_MNGR;
+      select USER_ID,
+             USER_NM,
+             AUTH_GROUP_CD,
+             SECRET_NUM,
+             REG_DT,
+             MOD_DT,
+             REGR_ID,
+             MODR_ID,
+             DEL_YN,
+             USER_DIV
+      FROM ST_MNGR
     </select>
-    
+    <select id="findByUserId" resultType="kr.co.baseprj.vo.user.UserVo" parameterType="string">
+      select USER_ID,
+             USER_NM,
+             AUTH_GROUP_CD,
+             SECRET_NUM,
+             REG_DT,
+             MOD_DT,
+             REGR_ID,
+             MODR_ID,
+             DEL_YN,
+             USER_DIV
+      FROM ST_MNGR
+      WHERE USER_ID = #{userId}
+    </select>
+
 
 </mapper>
 

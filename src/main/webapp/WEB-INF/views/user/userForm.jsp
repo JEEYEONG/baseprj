@@ -18,6 +18,14 @@
 <html>
 <head>
     <title>사용자 등록</title>
+
+    <style>
+      .btn-primary {
+        width: 130px;
+        height: 45px;
+      }
+
+    </style>
 </head>
 
 <body>
@@ -45,12 +53,9 @@
         <%--    </div>--%>
 
         <div class="form-group">
-            <label for="inputDiv1">사용자 구분</label>
-            <select class="form-control" id="inputDiv1" name="userDiv">
-                <option value="admin">ADMIN</option>
-                <option value="user">USER</option>
-
-            </select>
+            <label for="inputDiv">사용자 구분</label>
+            <input type="text" class="form-control" id="inputDiv" name="userDiv"
+                   placeholder="지점명">
         </div>
 
         <div class="form-group">
@@ -64,6 +69,7 @@
 
 
         <button type="submit" class="btn btn-primary">등록 완료</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='/userList'">목록</button>
     </div>
 </form>
 </body>
