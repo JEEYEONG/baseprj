@@ -29,6 +29,7 @@ spring:
       username: base_adm
       password: baseadm!@#
 
+
 mybatis:
   # mapper 경로 지정
   mapper-locations: sqls/**/*.xml

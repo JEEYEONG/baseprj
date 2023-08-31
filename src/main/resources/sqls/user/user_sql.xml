@@ -1,16 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.baseprj.mapper.UserMapper">
-    <insert id="saveUser" parameterType="kr.co.baseprj.vo.user.UserVo">
-        INSERT INTO ST_MNGR(USER_ID, USER_NM, AUTH_GROUP_CD, SECRET_NUM, REG_DT, MOD_DT, REGR_ID, MODR_ID, DEL_YN, USER_DIV)
-            VALUES(#{userId}, #{userNm}, #{authGroupCd}, #{secretNum}, #{regDt}, #{modDt}, #{regrId}, #{modrId}, #{delYn}, #{userDiv});
-    </insert>
+  <insert id="saveUser" parameterType="kr.co.baseprj.vo.user.UserVo">
+    INSERT INTO ST_MNGR(USER_ID, USER_NM, AUTH_GROUP_CD, SECRET_NUM, REG_DT, MOD_DT, REGR_ID,
+                        MODR_ID, DEL_YN, USER_DIV)
+    VALUES (#{userId}, #{userNm}, #{authGroupCd}, #{secretNum}, #{regDt}, #{modDt}, #{regrId},
+            #{modrId}, #{delYn}, #{userDiv});
+  </insert>
 
-    <select id="getUserList" resultType="kr.co.baseprj.vo.user.UserVo">
-        select USER_ID, USER_NM, AUTH_GROUP_CD, SECRET_NUM, REG_DT, MOD_DT, REGR_ID, MODR_ID, DEL_YN, USER_DIV FROM ST_MNGR;
-    </select>
-    
+  <select id="getUserList" resultType="kr.co.baseprj.vo.user.UserVo">
+    select USER_ID,
+           USER_NM,
+           AUTH_GROUP_CD,
+           SECRET_NUM,
+           REG_DT,
+           MOD_DT,
+           REGR_ID,
+           MODR_ID,
+           DEL_YN,
+           USER_DIV
+    FROM ST_MNGR;
+  </select>
+
+  <!--  Id를 입력받아 유저를 찾는다-->
+  <select id="findUserById" resultType="kr.co.baseprj.vo.user.UserVo" parameterType="string">
+    select USER_ID,
+           USER_NM,
+           AUTH_GROUP_CD,
+           SECRET_NUM,
+           REG_DT,
+           MOD_DT,
+           REGR_ID,
+           MODR_ID,
+           DEL_YN,
+           USER_DIV
+    FROM ST_MNGR
+    WHERE USER_ID = #{userId}
+  </select>
+
 
 </mapper>
 

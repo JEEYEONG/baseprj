@@ -22,23 +22,28 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-web-services'
-    testImplementation 'junit:junit:4.13.1'
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	// jsp
+	implementation 'javax.servlet:jstl'
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	implementation group: 'org.apache.tiles', name: 'tiles-jsp', version: '3.0.5'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+	// aop
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+	// validator(유효성 검사)
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.5.2'
+	// DevTools
+	implementation 'org.springframework.boot:spring-boot-devtools:2.7.14'
 
-	testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.7.14'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 
-	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
-	// jsp
-	implementation 'javax.servlet:jstl'
-	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	compileOnly 'org.projectlombok:lombok'
 
-	implementation group: 'org.apache.tiles', name: 'tiles-jsp', version: '3.0.5'
-
+	testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.7.14'
+	testImplementation 'junit:junit:4.13.1'
 }
 
 tasks.named('test') {

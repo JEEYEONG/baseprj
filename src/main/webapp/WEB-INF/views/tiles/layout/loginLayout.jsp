@@ -4,48 +4,59 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
-<!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-    <title>BASE ADMIN</title>
+    <title>Title</title>
     <script src="/static/js/jquery.js"></script>
-    <script src="/static/js/jquery.form.min.js"></script>
     <script src="/static/js/jquery-ui.min.js"></script>
     <script src="/static/js/common.js"></script>
 
     <%--    부트스트랩--%>
     <!-- CSS only -->
     <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
     <!-- JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <style>
-      div.left {
-        width: 20%;
-        float: left;
-      }
-
-      div.right {
-        width: 80%;
-        float: right;
-      }
-    </style>
 </head>
+<style>
+  .content_wrapper {
+    height: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
+  .form-signIn {
+    width: 500px;
+    justify-content: center;
+  }
+
+  .form-signIn label {
+    margin-top: 10px;
+  }
+
+  .form-signIn button {
+    margin-top: 40px;
+  }
+
+  .img_wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .error_box {
+    margin-left: 15px;
+  }
+
+  .error_box span {
+    color: red;
+  }
+</style>
 <body>
-<div class="left">
-    <tiles:insertAttribute name="adminMenu"/>
-</div>
-<div class="right">
-    <div class="content">
-        <tiles:insertAttribute name="adminHeader"/>
-        <div class="wrap">
-            <tiles:insertAttribute name="body"/>
-        </div>
-    </div>
+<div class="content_wrapper">
+    <tiles:insertAttribute name="body"/>
 </div>
 </body>
 </html>
