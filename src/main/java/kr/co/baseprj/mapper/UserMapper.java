@@ -12,7 +12,4 @@ public interface UserMapper {
     public List<UserVo> getUserList();
 
 
-
-
-
 }
