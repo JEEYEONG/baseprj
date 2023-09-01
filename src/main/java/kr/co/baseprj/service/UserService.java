@@ -50,4 +50,14 @@ public class UserService {
     UserVo userVo = findUser.get();
     return userVo;
   }
+
+  public void userDelete(String userId) {
+    userMapper.deleteUser(userId);
+
+  }
+
+  public void updateUser(UserVo userVo) {
+    userMapper.updateUser(userVo);
+
+  }
 }

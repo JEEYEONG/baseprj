@@ -35,6 +35,27 @@
       WHERE USER_ID = #{userId}
     </select>
 
+  <delete id="deleteUser">
+    UPDATE ST_MNGR
+    SET DEL_YN= 'Y'
+    WHERE USER_ID = #{userId}
+  </delete>
+
+  <update id="updateUser">
+    UPDATE ST_MNGR
+        SET USER_ID = #{userId},
+            USER_NM= #{userNm},
+            AUTH_GROUP_CD= #{authGroupCd},
+            SECRET_NUM= #{secretNum},
+            REG_DT= #{regDt},
+            MOD_DT= #{modDt},
+            REGR_ID= #{regrId},
+            MODR_ID= #{userId},
+            DEL_YN= #{delYn},
+            USER_DIV= #{userDiv}
+    WHERE USER_ID = #{userId}
+  </update>
+
 
 </mapper>
 
