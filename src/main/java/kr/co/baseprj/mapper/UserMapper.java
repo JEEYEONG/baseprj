@@ -12,5 +12,7 @@ public interface UserMapper {
 
     public List<UserVo> getUserList();
 
-     Optional<UserVo> findUserById(String userId);
+    Optional<UserVo> findByUserId(String userId);
+
+
 }
