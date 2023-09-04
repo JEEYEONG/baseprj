@@ -28,7 +28,7 @@ public class LoginServiceImpl implements LoginService {
       throw new NotEmptyException("아이디, 비밀번호를 입력해주세요.");
     }
 
-    Optional<UserVo> findUser = userMapper.findUserById(loginForm.getUserId());
+    Optional<UserVo> findUser = userMapper.findByUserId(loginForm.getUserId());
     findUser.orElseThrow(() -> new UserNotFoundException("존재하지 않는 아이디 입니다."));
 
     String password = findUser.get().getUserNm();
