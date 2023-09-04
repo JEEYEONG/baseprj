@@ -83,8 +83,8 @@
             <tbody>
             <c:forEach var="userList" items="${userLists}">
                 <tr align="center">
-                    <td>${userList.userId}</td>
-                    <td><a href="/userDetail/<c:out value='${userList.userId}'/>">${userList.userNm}</a></td>
+                    <td><a href="/userDetail/<c:out value='${userList.userId}'/>">${userList.userId}</a></td>
+                    <td>${userList.userNm}</td>
                     <td>${userList.secretNum}</td>
                     <td>${userList.userDiv}</td>
                     <td>${userList.authGroupCd}</td>

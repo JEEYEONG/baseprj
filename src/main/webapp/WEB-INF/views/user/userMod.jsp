@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: imcore1
@@ -29,7 +30,7 @@
 </head>
 
 <body>
-<form method="post" action="/mod/{userId}">
+<form method="post" action="/mod/<c:out value='${userId}'/>">
     <input type="hidden" id="userId" value="${userDtl.userId}">
     <div class="container">
         <h1>사용자 수정</h1>

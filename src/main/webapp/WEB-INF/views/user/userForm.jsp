@@ -6,6 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 
 <!-- CSS only -->
 <link rel="stylesheet"
@@ -28,6 +32,16 @@
     </style>
 </head>
 
+<script type="text/javascript">
+    /*$(document).ready(function () {
+      var errorMessage = [[${errorMessage}]];
+      if(errorMessage != null){
+        alert(errorMessage);
+      }
+    });*/
+
+</script>
+
 <body>
 <form method="post" action="/signUp">
     <div class="container">
@@ -35,7 +49,9 @@
         <div class="form-group">
             <label for="inputId">사용자 ID</label>
             <input type="text" class="form-control" id="inputId" name="userId"
-                   placeholder="사용자 아이디">
+                   placeholder="사용자 아이디" >
+            <p></p>
+
         </div>
         <div class="form-group">
             <label for="inputName">사용자 명</label>

@@ -9,6 +9,17 @@
 <html>
 <head>
     <title>상세보기</title>
+    <script>
+      $(document).ready(function(){
+        $(".delBtnt").on("click", function(){
+          if(confirm('회원을 삭제하시겠습니까?')){
+            alert("회원을 삭제하였습니다.");
+          } else {
+            return false;
+          }
+        });
+      });
+    </script>
 </head>
 <body>
 <input type="hidden" id="userId" value="${userDtl.userId}">
@@ -41,7 +52,7 @@
            value="${userDtl.authGroupCd}" readonly>
 </div>
 
-<button type="button" onclick="location.href='/delete/${userId}'">삭제</button>
+<button id="delBtn" type="button" onclick="location.href='/delete/${userId}'">삭제</button>
 <button type="button" onclick="location.href='/mod/${userDtl.userId}'">수정</button>
 <button type="button" onclick="location.href='/userList'">목록</button>
 </body>
