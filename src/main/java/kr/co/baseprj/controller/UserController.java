@@ -33,18 +33,41 @@ public class UserController {
   @GetMapping("/userList")
   public String userList(Model model) {
     List<UserVo> userLists = userService.userList();
+
     model.addAttribute("userLists",userLists);
 
     return "user/userList";
   }
 //  회원 상세보기
-  @GetMapping("/userDetail/{userId}")
+  @GetMapping(value = {"/userDetail/{userId}","/userDetail"})
   public String userDetail(Model model, @PathVariable("userId") String userId){
     UserVo userVo =  userService.getUserDtl(userId);
     model.addAttribute("userDtl", userVo);
 
     return "user/userDetail";
   }
+// 회원 삭제 근데 db는 남아있는
+  @GetMapping("/delete/{userId}")
+  public String deleteUser(@PathVariable("userId") String userId){
+    userService.userDelete(userId);
 
+    return "user/userList";
+  }
+
+// 회원 수정 페이지 이동
+  @GetMapping("/mod/{userId}")
+  public String modUser(@PathVariable("userId") String userId, Model model){
+    UserVo userVo =  userService.getUserDtl(userId);
+    model.addAttribute("userDtl", userVo);
+
+    return "user/userMod";
+  }
+// 수정 버튼 클릭시 작동
+  @PostMapping("/mod/{userId}")
+  public String modUser(UserVo userVo, Model model){
+    userService.updateUser(userVo);
+
+    return "user/userList";
+  }
 
 }

@@ -15,4 +15,7 @@ public interface UserMapper {
     Optional<UserVo> findByUserId(String userId);
 
 
+    void deleteUser(String userId);
+
+    void updateUser(UserVo userVo);
 }
