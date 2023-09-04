@@ -11,9 +11,18 @@
     <put-attribute name="body" value=""/>
   </definition>
 
+  <definition name="*/commonCode" extends="adminLayout">
+    <put-attribute name="body" value=""
+  </definition>
   <!--  로그인 페이지 url -->
   <definition name="*/login" template="/WEB-INF/views/tiles/layout/loginLayout.jsp">
     <put-attribute name="body" value="/WEB-INF/views/user/login.jsp"/>
+  </definition>
+  <!--  메뉴 페이지 url-->
+  <definition name="*/menu" template="/WEB-INF/views/tiles/layout/menuLayout.jsp">
+    <put-attribute name="adminHeader" value="/WEB-INF/views/tiles/layout/adminHeader.jsp" />
+    <put-attribute name="menuLeftSide" value="/WEB-INF/views/tiles/layout/menuLeft.jsp" />
+    <put-attribute name="body" value="/WEB-INF/views/user/menu.jsp" />
   </definition>
 
   <!--메인-->

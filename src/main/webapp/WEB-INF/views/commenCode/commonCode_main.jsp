@@ -7,26 +7,7 @@
 <html>
 <head></head>
 <body>
-<form:form id="loginForm" modelAttribute="loginForm" class="form form-signIn" method="post"
-           action="/login">
-    <div class="img_wrapper">
-        <img class="mb-4" src="/static/img/logo.PNG" alt="" width="72" height="72"/>
-    </div>
-    <label for="userId" class="login_input">아이디</label>
-    <form:input path="userId" type="text" id="userId" class="form-control" name="userId"
-                placeholder="아이디를 입력해주세요"
-                required=""
-                autofocus=""/>
-    <div class="error_box"><form:errors path="userId"/></div>
-    <label for="secretNum" class="login_input">비밀번호</label>
-    <form:input path="secretNum" type="password" id="secretNum" name="secretNum"
-                class="form-control"
-                placeholder="비밀번호를 입력해주세요"
-                required=""/>
-    <div class="error_box"><form:errors path="secretNum"/></div>
-    <button id="login_btn" class="btn btn-lg btn-primary btn-block" type="button">로그인</button>
-    <p class="mt-5 mb-3 text-muted">© 2017-2022</p>
-</form:form>
+
 <script>
     $(document).ready(function () {
         $("#login_btn").click(function () {
@@ -65,3 +46,4 @@
 
 </body>
 </html>
+

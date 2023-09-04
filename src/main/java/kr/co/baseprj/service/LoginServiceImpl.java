@@ -28,10 +28,10 @@ public class LoginServiceImpl implements LoginService {
       throw new NotEmptyException("아이디, 비밀번호를 입력해주세요.");
     }
 
-    Optional<UserVo> findUser = userMapper.findUserById(loginForm.getUserId());
+    Optional<UserVo> findUser = userMapper.findByUserId(loginForm.getUserId());
     findUser.orElseThrow(() -> new UserNotFoundException("존재하지 않는 아이디 입니다."));
 
-    String password = findUser.get().getUserNm();
+    String password = findUser.get().getSecretNum();
     log.info("password={}", password);
     if (!Objects.equals(password, loginForm.getSecretNum())) {
       throw new PasswordMisMatchException("패스워드가 일치하지 않습니다.");
