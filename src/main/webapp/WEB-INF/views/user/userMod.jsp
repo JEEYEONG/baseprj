@@ -32,45 +32,43 @@
 <form method="post" action="/mod/{userId}">
     <input type="hidden" id="userId" value="${userDtl.userId}">
     <div class="container">
-        <h1>사용자 등록</h1>
+        <h1>사용자 수정</h1>
         <div class="form-group">
             <label for="inputId">사용자 ID</label>
             <input type="text" class="form-control" id="inputId" name="userId"
-                   placeholder="사용자 아이디" disabled>
+                   value="${userDtl.userId}"
+                   readonly>
         </div>
         <div class="form-group">
             <label for="inputName">사용자 명</label>
             <input type="text" class="form-control" id="inputName" name="userNm"
-                   placeholder="사용자 이름">
+                   value="${userDtl.userNm}">
         </div>
         <div class="form-group">
             <label for="inputPassword">비밀번호</label>
             <input type="password" class="form-control" id="inputPassword" name="secretNum"
-                   placeholder="사용자 비밀번호">
+                   value="${userDtl.secretNum}">
         </div>
-        <%--    <div class="form-group">--%>
-        <%--      <label for="inputPassword1">비밀번호 확인</label>--%>
-        <%--      <input type="password" class="form-control" id="inputPassword1" name="secretNum" placeholder="사용자 비밀번호">--%>
-        <%--    </div>--%>
 
         <div class="form-group">
             <label for="inputDiv">사용자 구분</label>
             <input type="text" class="form-control" id="inputDiv" name="userDiv"
-                   placeholder="지점명">
+                   value="${userDtl.userDiv}">
         </div>
 
         <div class="form-group">
             <label for="inputGroup">권한 그룹 코드</label>
-            <select class="form-control" id="inputGroup" name="authGroupCd">
+            <select class="form-control" id="inputGroup" name="authGroupCd"
+                    value="${userDtl.authGroupCd}">
                 <option value="root">ROOT</option>
                 <option value="admin">ADMIN</option>
                 <option value="user">USER</option>
             </select>
         </div>
 
-
         <button type="submit" class="btn btn-primary">수정 완료</button>
-        <button type="button" class="btn btn-primary" onclick="location.href='/userList'">목록</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='/userList'">목록
+        </button>
     </div>
 </form>
 </body>

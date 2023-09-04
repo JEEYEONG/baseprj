@@ -33,6 +33,7 @@ public class UserController {
   @GetMapping("/userList")
   public String userList(Model model) {
     List<UserVo> userLists = userService.userList();
+
     model.addAttribute("userLists",userLists);
 
     return "user/userList";
@@ -42,7 +43,6 @@ public class UserController {
   public String userDetail(Model model, @PathVariable("userId") String userId){
     UserVo userVo =  userService.getUserDtl(userId);
     model.addAttribute("userDtl", userVo);
-    System.out.println("-----------"+userVo);
 
     return "user/userDetail";
   }
@@ -50,6 +50,7 @@ public class UserController {
   @GetMapping("/delete/{userId}")
   public String deleteUser(@PathVariable("userId") String userId){
     userService.userDelete(userId);
+
     return "user/userList";
   }
 
@@ -58,7 +59,6 @@ public class UserController {
   public String modUser(@PathVariable("userId") String userId, Model model){
     UserVo userVo =  userService.getUserDtl(userId);
     model.addAttribute("userDtl", userVo);
-    System.out.println("-----------"+userVo);
 
     return "user/userMod";
   }
@@ -66,7 +66,8 @@ public class UserController {
   @PostMapping("/mod/{userId}")
   public String modUser(UserVo userVo, Model model){
     userService.updateUser(userVo);
-    return "user/userDetail";
+
+    return "user/userList";
   }
 
 }

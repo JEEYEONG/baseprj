@@ -19,9 +19,10 @@
              DEL_YN,
              USER_DIV
       FROM ST_MNGR
+      WHERE DEL_YN = 'N'
     </select>
     <select id="findByUserId" resultType="kr.co.baseprj.vo.user.UserVo" parameterType="string">
-      select USER_ID,
+      SELECT USER_ID,
              USER_NM,
              AUTH_GROUP_CD,
              SECRET_NUM,
@@ -35,11 +36,11 @@
       WHERE USER_ID = #{userId}
     </select>
 
-  <delete id="deleteUser">
+  <update id="deleteUser">
     UPDATE ST_MNGR
     SET DEL_YN= 'Y'
     WHERE USER_ID = #{userId}
-  </delete>
+  </update>
 
   <update id="updateUser">
     UPDATE ST_MNGR
