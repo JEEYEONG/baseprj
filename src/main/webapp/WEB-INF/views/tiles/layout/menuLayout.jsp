@@ -20,85 +20,16 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
-<style>
-  .menu_view_wrapper {
-    margin: auto 25px;
-    height: 800px;
-  }
 
 
-  .menu_view h2 {
-    text-align: center;
-  }
-
-  .menu_view_wrapper .top {
-    margin-left: 20px;
-    font-weight: bold;
-    font-size: 20px;
-  }
-
-  .menu_view_header_wrapper tr th {
-    border: 1px solid black;
-  }
-
-
-  .menu_view {
-    border: 1px solid black;
-    width: inherit;
-    height: 700px;
-  }
-
-  .menu_view tbody > tr {
-    border: none;
-    height: 100px;
-  }
-
-  .menu_view .second {
-    margin-left: 40px;
-    font-weight: lighter;
-    font-size: 15px;
-  }
-
-  .menu_view .third {
-    margin-left: 60px;
-    font-weight: lighter;
-    font-size: 12px;
-  }
-
-  .menu-level-0 {
-    font-weight: bold;
-  }
-
-  .menu-level-1 {
-    margin-left: 20px;
-  }
-
-  .menu-level-2 {
-    margin-left: 40px;
-  }
-
-  .menu_wrapper {
-    border: solid 1px black;
-    height: inherit;
-  }
-
-  .button_wrapper {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .button_wrapper button {
-    margin-left: 10px;
-  }
-</style>
 <body>
-<div class="left">
+
     <tiles:insertAttribute name="adminHeader"/>
-</div>
-<div class="container-fluid" style="height: 950px">
-    <div class="row" style="height: inherit">
-        <div class="col-md-4" style="height: inherit">
-            <div class="menu_wrapper" style="height: inherit">
+
+<div class="container-fluid h-950">
+    <div class="flex h-full">
+        <div class="col-md-4 h-full">
+            <div class="menu_wrapper h-full">
                 <table class="table">
                     <thead>
                     <tr>

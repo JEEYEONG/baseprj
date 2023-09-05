@@ -1,0 +1,51 @@
+/* code-save-form-styles.css */
+
+/* Form input styling */
+.code-save-form-control {
+    @apply block w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 focus:border-blue-500;
+}
+
+/* Button styling */
+.code-save-form-btn {
+    @apply py-2 px-4 rounded font-bold focus:outline-none focus:shadow-outline;
+}
+
+/* Primary button */
+.code-save-form-btn-primary {
+    @apply bg-green-500 hover:bg-green-600 text-white;
+}
+
+/* Secondary button */
+.code-save-form-btn-secondary {
+    @apply bg-red-500 hover:bg-red-600 text-white;
+}
+
+/* Table styling */
+.code-save-form-table {
+    @apply w-full border-collapse;
+}
+
+/* Table header styling */
+.code-save-form-table th {
+    @apply px-4 py-2 bg-gray-100 border;
+}
+
+/* Table cell styling */
+.code-save-form-table td {
+    @apply px-4 py-2 border;
+}
+
+/* Flex container */
+.code-save-form-flex {
+    @apply flex;
+}
+
+/* Spacing between elements in flex container */
+.code-save-form-space-x-4 {
+    @apply space-x-4;
+}
+
+/* Justify content to the end in flex container */
+.code-save-form-justify-end {
+    @apply justify-end;
+}

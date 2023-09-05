@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Properties;
 import javax.servlet.http.HttpSession;
+
+import kr.co.baseprj.vo.code.GroupCodeVo;
 import kr.co.baseprj.vo.menu.MenuSaveVo;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -40,6 +42,8 @@ public class AuditInterceptor implements Interceptor {
 
       if (parameter instanceof MenuSaveVo) {
         processAuditLogging((MenuSaveVo) parameter);
+      } else if(parameter instanceof GroupCodeVo) {
+        processAuditLogging((GroupCodeVo) parameter);
       }
     }
 
@@ -54,6 +58,16 @@ public class AuditInterceptor implements Interceptor {
 
     menuSaveVo.setRegrId(userId);
     menuSaveVo.setRegDt(now);
+
+  }
+  private void processAuditLogging(GroupCodeVo groupCodeVo) {
+    // 감사 로그 작성 및 저장
+
+    String userId = getUserIdFromSession();
+    Date now = Timestamp.valueOf(LocalDateTime.now());
+
+    groupCodeVo.setRegrId(userId);
+    groupCodeVo.setRegDt(now);
 
   }
 
