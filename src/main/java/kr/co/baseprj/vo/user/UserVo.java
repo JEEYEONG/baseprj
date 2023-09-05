@@ -36,4 +36,5 @@ public class UserVo {
     this.userDiv = userDiv;
   }
 
+
 }
