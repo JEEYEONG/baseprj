@@ -15,6 +15,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 
 <html>
 <head>
@@ -27,6 +29,11 @@
       }
 
     </style>
+
+
+    <script type="text/javascript">
+
+    </script>
 </head>
 
 <body>
@@ -43,12 +50,14 @@
         <div class="form-group">
             <label for="inputName">사용자 명</label>
             <input type="text" class="form-control" id="inputName" name="userNm"
-                   value="${userDtl.userNm}">
+                   value="${userDtl.userNm}" required
+                   oninvalid="this.setCustomValidity('이름를 입력해주세요.')">
         </div>
         <div class="form-group">
             <label for="inputPassword">비밀번호</label>
             <input type="password" class="form-control" id="inputPassword" name="secretNum"
-                   value="${userDtl.secretNum}">
+                   value="${userDtl.secretNum}" required
+                   oninvalid="this.setCustomValidity('비밀번호를 입력해주세요.')">
         </div>
 
         <div class="form-group">
@@ -61,9 +70,9 @@
             <label for="inputGroup">권한 그룹 코드</label>
             <select class="form-control" id="inputGroup" name="authGroupCd"
                     value="${userDtl.authGroupCd}">
-                <option value="root">ROOT</option>
-                <option value="admin">ADMIN</option>
-                <option value="user">USER</option>
+                <option value="root" <c:if test="${userDtl.authGroupCd eq 'root'}">selected</c:if>>ROOT</option>
+                <option value="admin" <c:if test="${userDtl.authGroupCd eq 'admin'}">selected</c:if>>ADMIN</option>
+                <option value="user" <c:if test="${userDtl.authGroupCd eq 'user'}">selected</c:if>>USER</option>
             </select>
         </div>
 

@@ -36,15 +36,10 @@
 </head>
 
 <body>
-<div class="left">
-    <tiles:insertAttribute name="adminMenu"/>
-</div>
-<div class="right">
-    <div class="content">
-        <tiles:insertAttribute name="adminHeader"/>
-        <div class="wrap">
-            <tiles:insertAttribute name="body"/>
-        </div>
+<div class="content">
+    <tiles:insertAttribute name="adminHeader"/>
+    <div class="wrap">
+        <tiles:insertAttribute name="body"/>
     </div>
 </div>
 </body>

@@ -12,28 +12,32 @@
     <title>회원목록</title>
 
     <style>
-      .content {
 
+      .content {
+        width: 800px;
+        margin: 0 auto;
 
       }
-
 
       .userTable {
         position: fixed;
         width: 100%;
         top: 170px;
-
       }
 
       .table1 {
         margin: 0;
-        width: 70%;
+        width: 1050px;
+        position: relative;
+      }
+      .table1 tr, td {
+        padding: 5px;
       }
 
       .signUp {
-        position: fixed;
-        right: 170px;
-
+        position: relative;
+        left: 310px;
+        bottom: 10px;
 
       }
 
@@ -42,20 +46,21 @@
       }
 
       a:hover {
-        /*text-decoration: none;*/
         color: black;
       }
 
       .signUpbtn {
+        position: absolute;
+        left: 670px;
         text-align: center;
         vertical-align: middle;
-        width: 50px;
+        width: 70px;
         padding: 9px 14px;
-        border-radius: 5px;
         border: 1px solid #aaa;
         transition: 0.4s;
         cursor: pointer;
       }
+
       .signUp a:hover{
         text-decoration: none;
       }
@@ -67,7 +72,6 @@
     <div class="signUp">
         <a class="signUpbtn" href="/signUp">등록</a>
     </div>
-
 
     <div class="userTable">
         <table border="1" align="center" class="table1">

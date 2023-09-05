@@ -1,14 +1,12 @@
 package kr.co.baseprj.controller;
 
 import java.util.List;
-import javax.validation.Valid;
 import kr.co.baseprj.service.UserService;
 import kr.co.baseprj.vo.user.UserVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,18 +25,17 @@ public class UserController {
     return "user/userForm";
   }
 
-  //  회원등록
   @PostMapping("/signUp")
   public String signUp(UserVo userVo,
-      @SessionAttribute(name = "currentUser", required = false) String currentUser,  Model model) {
-    if(userService.validate(userVo)) {
-
+      @SessionAttribute(name = "currentUser", required = false) String currentUser, Model model) {
+    if (userService.validate(userVo)) {
+      return "user/userForm";
     }
     try {
       userService.joinUser(userVo, currentUser);
     } catch (IllegalAccessError e) {
-        model.addAttribute("errorMessage", e.getMessage());
-        return "user/userForm";
+      model.addAttribute("errorMessage", "등록 중 에러가 발생하였습니다.");
+      return "user/userForm";
 
     }
     return "redirect:/";
@@ -78,6 +75,7 @@ public class UserController {
   public String modUser(@PathVariable("userId") String userId, Model model) {
     UserVo userVo = userService.getUserDtl(userId);
     model.addAttribute("userDtl", userVo);
+
 
     return "user/userMod";
   }

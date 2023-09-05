@@ -24,21 +24,89 @@
     <title>사용자 등록</title>
 
     <style>
+      .container {
+        text-align: center;
+        width: 800px;
+      }
+
+      .container h1 {
+        margin: 0 0 40px 0;
+      }
+
+      .form-group {
+        border-top: 1px solid dimgray ;
+        padding-top: 13px;
+      }
+
+      #form-top{
+        border-top: 2px solid dimgray ;
+        padding-top: 13px;
+      }
+      #form-bottom{
+        border-bottom: 2px solid dimgray ;
+        padding-bottom: 13px;
+      }
+
+      .form-group label {
+        font-weight: bold;
+        width: 200px;
+        text-align: center;
+        padding: 0 40px;
+
+
+      }
+
+      .form-control {
+        display: inline;
+        width: 500px;
+        margin: 0 0 0 30px;
+        padding: 6px 17px;
+        background-color: whitesmoke;
+        border: none;
+      }
+
+
+
+      .btn-wrap {
+        margin-top: 27px;
+        position: relative;
+        left: 236px;
+      }
+
       .btn-primary {
         width: 130px;
         height: 45px;
+        margin : 0 15px;
+        background-color: lightgray;
+        border-radius: 0px;
+        border: 1px solid dimgray;
+        color: black;
       }
+
+      .btn-primary:hover{
+        background-color: silver;
+        border: 1px solid dimgray;
+        color: black;
+      }
+
+      .btn-primary:after{
+        background-color: silver;
+        border: 1px solid dimgray;
+        color: black;
+      }
+
 
     </style>
 </head>
 
 <script type="text/javascript">
-    /*$(document).ready(function () {
-      var errorMessage = [[${errorMessage}]];
+  /*$(document).ready(function () {
+    var errorMessage = [[${errorMessage}]];
       if(errorMessage != null){
         alert(errorMessage);
       }
     });*/
+
 
 </script>
 
@@ -46,35 +114,32 @@
 <form method="post" action="/signUp">
     <div class="container">
         <h1>사용자 등록</h1>
-        <div class="form-group">
+        <div class="form-group" id="form-top">
+
             <label for="inputId">사용자 ID</label>
             <input type="text" class="form-control" id="inputId" name="userId"
-                   placeholder="사용자 아이디" >
-            <p></p>
-
+                   placeholder="사용자 아이디를 입력해주세요."
+                   required oninvalid="this.setCustomValidity('아이디를 입력해주세요.')">
         </div>
         <div class="form-group">
             <label for="inputName">사용자 명</label>
             <input type="text" class="form-control" id="inputName" name="userNm"
-                   placeholder="사용자 이름">
+                   placeholder="사용자 이름을 입력해주세요." required oninvalid="this.setCustomValidity('이름를 입력해주세요.')">
         </div>
         <div class="form-group">
             <label for="inputPassword">비밀번호</label>
             <input type="password" class="form-control" id="inputPassword" name="secretNum"
-                   placeholder="사용자 비밀번호">
+                   placeholder="사용자 비밀번호를 입력해주세요." required
+                   oninvalid="this.setCustomValidity('비밀번호를 입력해주세요.')">
         </div>
-        <%--    <div class="form-group">--%>
-        <%--      <label for="inputPassword1">비밀번호 확인</label>--%>
-        <%--      <input type="password" class="form-control" id="inputPassword1" name="secretNum" placeholder="사용자 비밀번호">--%>
-        <%--    </div>--%>
 
         <div class="form-group">
             <label for="inputDiv">사용자 구분</label>
             <input type="text" class="form-control" id="inputDiv" name="userDiv"
-                   placeholder="지점명">
+                   placeholder="지점명을 입력해주세요.">
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="form-bottom">
             <label for="inputGroup">권한 그룹 코드</label>
             <select class="form-control" id="inputGroup" name="authGroupCd">
                 <option value="root">ROOT</option>
@@ -83,9 +148,11 @@
             </select>
         </div>
 
-
-        <button type="submit" class="btn btn-primary">등록 완료</button>
-        <button type="button" class="btn btn-primary" onclick="location.href='/userList'">목록</button>
+        <div class="btn-wrap">
+            <button type="submit" class="btn btn-primary" onclick="submit()">등록</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='/userList'">목록
+            </button>
+        </div>
     </div>
 </form>
 </body>

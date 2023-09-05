@@ -7,7 +7,6 @@
   <definition name="adminLayout" template="/WEB-INF/views/tiles/layout/adminLayout.jsp">
     <put-attribute name="title" value="사운드 음파 출결 관리자"/>
     <put-attribute name="adminHeader" value="/WEB-INF/views/tiles/layout/adminHeader.jsp"/>
-    <put-attribute name="adminMenu" value="/WEB-INF/views/tiles/layout/adminLeftMenu.jsp"/>
     <put-attribute name="body" value=""/>
   </definition>
 

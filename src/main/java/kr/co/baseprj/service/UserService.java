@@ -48,13 +48,13 @@ public class UserService {
     userMapper.saveUser(userVo);
   }
 
-  /*private void validateDuplicateUser(UserVo userVo) {
-    Optional<UserVo> findUser = userMapper.findByUserId(userVo.getUserId());
-      System.out.println(">>>>>>"+findUser);
-    if(findUser != null){
-      throw new IllegalStateException("이미 가입된 회원입니다.");
-    }
-  }*/
+//  private void validateDuplicateUser(UserVo userVo) {
+//    Optional<UserVo> findUser = userMapper.findByUserId(userVo.getUserId());
+//      System.out.println(">>>>>>"+findUser);
+//    if(findUser != null){
+//      throw new IllegalStateException("이미 가입된 회원입니다.");
+//    }
+//  }
 
   public List<UserVo> userList() {
     return userMapper.getUserList();

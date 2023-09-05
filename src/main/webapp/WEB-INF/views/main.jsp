@@ -9,6 +9,12 @@
 <html>
 <head>
     <title>메인화면</title>
+    <style>
+        .body{
+          margin: 0 auto;
+          width: 80%;
+        }
+    </style>
 </head>
 <body>
     <div class="body">
