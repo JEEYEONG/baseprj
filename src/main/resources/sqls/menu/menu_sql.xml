@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.baseprj.mapper.MenuMapper">
+  <resultMap id="MenuVo" type="kr.co.baseprj.vo.menu.MenuVo">
+    <result property="dateTime" column="date_column" javaType="java.time.LocalDateTime"/>
+  </resultMap>
+  <insert id="save" parameterType="kr.co.baseprj.vo.menu.MenuSaveVo">
+    <!-- MenuSaveVo에 필요한 필드를 대입하여 INSERT 쿼리를 생성 -->
+    INSERT INTO st_menu_mgmt (
+    menu_cd,
+    menu_nm,
+    depth,
+    link_url,
+    regr_id,
+    reg_dt,
+    modr_id,
+    mod_dt,
+    displ_yn
+    )
+    VALUES (
+    #{menuCd},
+    #{menuNm},
+    0,
+    #{linkUrl},
+    #{regrId},
+    #{regDt},
+    #{modrId},
+    #{modrDt},
+    #{displYn}
+    )
+  </insert>
+  <select id="findByMenuCd" parameterType="string" resultType="kr.co.baseprj.vo.menu.MenuVo">
+    select menu_cd,
+           menu_nm,
+           depth,
+           cate_cd,
+           dvs_cd,
+           sect_cd,
+           cate_sort,
+           dvs_sort,
+           sect_sort,
+           link_url,
+           del_yn,
+           modr_id,
+           mod_dt,
+           regr_id,
+           reg_dt,
+           icon,
+           displ_yn
+    from st_menu_mgmt
+    where menu_cd = #{menuCd}
+  </select>
+  <select id="findMenuList" resultType="kr.co.baseprj.vo.menu.MenuVo">
+    select menu_cd,
+           menu_nm,
+           depth,
+           cate_cd,
+           dvs_cd,
+           sect_cd,
+           cate_sort,
+           dvs_sort,
+           sect_sort,
+           link_url,
+           del_yn,
+           modr_id,
+           mod_dt,
+           regr_id,
+           reg_dt,
+           icon,
+           displ_yn
+    from st_menu_mgmt
+  </select>
+</mapper>
+

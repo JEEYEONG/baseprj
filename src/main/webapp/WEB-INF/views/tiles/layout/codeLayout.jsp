@@ -22,27 +22,12 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      div.left {
-        width: 20%;
-        float: left;
-      }
-
-        div.right {
-            width: 80%;
-            float: right;
-        }
-        .wrap {
-            height: 80%;
-        }
-    </style>
 </head>
 
 <body>
+    <tiles:insertAttribute name="adminHeader"/>
 <div class="right">
-    <div class="content" style="height: 1500px;">
-        <tiles:insertAttribute name="adminHeader"/>
+    <div class="content">
         <div class="wrap">
             <tiles:insertAttribute name="body"/>
         </div>
