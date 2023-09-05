@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.baseprj.mapper.CodeMapper">
+    <sql id="searchCondition">
+        <choose>
+            <when test="groupCd != null">
+                AND UPPER(group_cd) like concat('%', UPPER(group_cd), '%')
+            </when>
+        </choose>
+    </sql>
+    <select id="findCodeList" parameterType="kr.co.baseprj.paging.SearchCondition" resultType="kr.co.baseprj.vo.code.GroupCodeVo">
+        SELECT group_cd,
+        group_cd_nm,
+        descrt,
+        regr_id,
+        reg_dt,
+        modr_id,
+        mod_dt,
+        del_yn
+        FROM
+        st_group_cd_mgmt
+        WHERE true
+        AND del_yn = 'N'
+        <include refid="searchCondition"/>
+        LIMIT #{offset}, #{pageSize}
+    </select>
+    <select id="searchResultCnt" parameterType="kr.co.baseprj.paging.SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM
+        st_group_cd_mgmt
+        WHERE true
+        AND del_yn = 'N'
+        <include refid="searchCondition"/>
+    </select>
+    <insert id="saveCode" parameterType="kr.co.baseprj.vo.code.GroupCodeVo">
+        insert into st_group_cd_mgmt
+        (UPPER( group_cd ),
+         group_cd_nm,
+         descrt,
+         regr_id,
+         reg_dt,
+         modr_id,
+         mod_dt,
+         del_yn)
+        values (#{groupCd},
+                #{groupCdNm},
+                #{descrt},
+                #{regrId},
+                #{regDt},
+                #{modrId},
+                #{modDt},
+                #{delYn})
+    </insert>
+    <select id="findByGroupCd" resultType="kr.co.baseprj.vo.code.GroupCodeVo">
+        select group_cd,
+               group_cd_nm,
+               descrt,
+               regr_id,
+               reg_dt,
+               modr_id,
+               mod_dt,
+               del_yn
+        from st_group_cd_mgmt
+        WHERE true
+        AND del_yn = 'N'
+        AND UPPER(group_cd) = UPPER(#{groupCd})
+    </select>
+    <select id="searchStCodeResultCnt" resultType="java.lang.Integer" parameterType="kr.co.baseprj.paging.SearchCondition">
+        select count(*)
+        from st_cd_mgmt
+        where true
+          AND del_yn = 'N'
+          AND UPPER(group_cd) = UPPER(#{groupCd})
+    </select>
+    <select id="findStCodeByCdNm" resultType="kr.co.baseprj.vo.code.StCodeVo" parameterType="map">
+        select cd,
+               cd_nm,
+               descrt,
+               displ_sort,
+               regr_id,
+               reg_dt,
+               modr_id,
+               mod_dt,
+               del_yn,
+               group_cd
+        from st_cd_mgmt
+        where TRUE
+        AND UPPER(group_cd) = UPPER(#{groupCd})
+        AND UPPER(cd) = UPPER(cd)
+    </select>
+</mapper>
+
