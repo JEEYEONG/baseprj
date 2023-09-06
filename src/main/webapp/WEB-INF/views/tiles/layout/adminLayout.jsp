@@ -24,15 +24,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      div.left {
-        width: 20%;
-        float: left;
-      }
 
-        div.right {
-            width: 80%;
-            float: right;
-        }
         .wrap {
             height: 80%;
         }
@@ -40,12 +32,10 @@
 </head>
 
 <body>
-<div class="right">
-    <div class="content" style="height: 1500px;">
-        <tiles:insertAttribute name="adminHeader"/>
-        <div class="wrap">
-            <tiles:insertAttribute name="body"/>
-        </div>
+<div class="content" style="height: 1500px;">
+    <tiles:insertAttribute name="adminHeader"/>
+    <div class="wrap">
+        <tiles:insertAttribute name="body"/>
     </div>
 </div>
 </body>

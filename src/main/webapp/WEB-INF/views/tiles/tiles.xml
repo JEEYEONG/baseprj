@@ -9,12 +9,6 @@
     <put-attribute name="adminHeader" value="/WEB-INF/views/tiles/layout/adminHeader.jsp"/>
     <put-attribute name="body" value=""/>
   </definition>
-    <!-- 관리자 기본 레이아웃 -->
-    <definition name="adminLayout" template="/WEB-INF/views/tiles/layout/adminLayout.jsp">
-        <put-attribute name="title" value="사운드 음파 출결 관리자"/>
-        <put-attribute name="adminHeader" value="/WEB-INF/views/tiles/layout/adminHeader.jsp"/>
-        <put-attribute name="body" value=""/>
-    </definition>
     <!--  공통 코드 저장-->
     <definition name="*/code/save" template="/WEB-INF/views/tiles/layout/codeLayout.jsp">
         <put-attribute name="adminHeader" value="/WEB-INF/views/tiles/layout/adminHeader.jsp"/>

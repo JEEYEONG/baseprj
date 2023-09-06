@@ -23,16 +23,91 @@
     <title>사용자 수정</title>
 
     <style>
+      .container {
+        text-align: center;
+        width: 800px;
+      }
+
+      .container h1 {
+        margin: 0 0 40px 0;
+      }
+
+      .form-group {
+        border-top: 1px solid dimgray ;
+        padding-top: 13px;
+      }
+
+      #form-top{
+        border-top: 2px solid dimgray ;
+        padding-top: 13px;
+      }
+      #form-bottom{
+        border-bottom: 2px solid dimgray ;
+        padding-bottom: 13px;
+      }
+
+      .form-group label {
+        font-weight: bold;
+        width: 200px;
+        text-align: center;
+        padding: 0 40px;
+
+
+      }
+
+      .form-control {
+        display: inline;
+        width: 500px;
+        margin: 0 0 0 30px;
+        padding: 6px 17px;
+        background-color: whitesmoke;
+        border: none;
+      }
+
+
+
+      .btn-wrap {
+        margin-top: 27px;
+        position: relative;
+        left: 236px;
+      }
+
       .btn-primary {
         width: 130px;
         height: 45px;
+        margin : 0 15px;
+        background-color: lightgray;
+        border-radius: 0px;
+        border: 1px solid dimgray;
+        color: black;
       }
+
+      .btn-primary:hover{
+        background-color: silver;
+        border: 1px solid dimgray;
+        color: black;
+      }
+
+      .btn-primary:after{
+        background-color: silver;
+        border: 1px solid dimgray;
+        color: black;
+      }
+
 
     </style>
 
 
-    <script type="text/javascript">
-
+    <script>
+      $(document).ready(function () {
+        $('#modBtn').on("click", function () {
+          if (confirm('정보를 수정하시겠습니까?')) {
+            alert("수정하였습니다.");
+          } else {
+            return false;
+          }
+        });
+      });
     </script>
 </head>
 
@@ -41,7 +116,7 @@
     <input type="hidden" id="userId" value="${userDtl.userId}">
     <div class="container">
         <h1>사용자 수정</h1>
-        <div class="form-group">
+        <div class="form-group" id="form-top">
             <label for="inputId">사용자 ID</label>
             <input type="text" class="form-control" id="inputId" name="userId"
                    value="${userDtl.userId}"
@@ -66,19 +141,28 @@
                    value="${userDtl.userDiv}">
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="form-bottom">
             <label for="inputGroup">권한 그룹 코드</label>
             <select class="form-control" id="inputGroup" name="authGroupCd"
                     value="${userDtl.authGroupCd}">
-                <option value="root" <c:if test="${userDtl.authGroupCd eq 'root'}">selected</c:if>>ROOT</option>
-                <option value="admin" <c:if test="${userDtl.authGroupCd eq 'admin'}">selected</c:if>>ADMIN</option>
-                <option value="user" <c:if test="${userDtl.authGroupCd eq 'user'}">selected</c:if>>USER</option>
+                <option value="root" <c:if test="${userDtl.authGroupCd eq 'root'}">selected</c:if>>
+                    ROOT
+                </option>
+                <option value="admin"
+                        <c:if test="${userDtl.authGroupCd eq 'admin'}">selected</c:if>>ADMIN
+                </option>
+                <option value="user" <c:if test="${userDtl.authGroupCd eq 'user'}">selected</c:if>>
+                    USER
+                </option>
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">수정 완료</button>
-        <button type="button" class="btn btn-primary" onclick="location.href='/userList'">목록
-        </button>
+        <div class="btn-wrap">
+            <button id="modBtn"  type="submit" class="btn btn-primary">수정 완료</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='/userList'">목록
+            </button>
+        </div>
+
     </div>
 </form>
 </body>

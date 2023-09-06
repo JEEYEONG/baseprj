@@ -1,6 +1,8 @@
 package kr.co.baseprj.controller;
 
 import java.util.List;
+import kr.co.baseprj.paging.PageHandler;
+import kr.co.baseprj.paging.SearchCondition;
 import kr.co.baseprj.service.UserService;
 import kr.co.baseprj.vo.user.UserVo;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +31,9 @@ public class UserController {
   public String signUp(UserVo userVo,
       @SessionAttribute(name = "currentUser", required = false) String currentUser, Model model) {
     if (userService.validate(userVo)) {
-      return "user/userForm";
+
     }
+
     try {
       userService.joinUser(userVo, currentUser);
     } catch (IllegalAccessError e) {
@@ -43,11 +46,14 @@ public class UserController {
 
   //  회원목록
   @GetMapping("/userList")
-  public String userList(Model model) {
-    List<UserVo> userLists = userService.userList();
+  public String userList(Model model, SearchCondition sc) {
+    int totalCnt = userService.getResultCnt();
+    PageHandler ph = new PageHandler(totalCnt, sc);
+
+    List<UserVo> userLists = userService.userList(sc);
 
     model.addAttribute("userLists", userLists);
-
+    model.addAttribute("page", ph);
     return "user/userList";
   }
 
@@ -62,9 +68,9 @@ public class UserController {
 
   // 회원 삭제 근데 db는 남아있는
   @GetMapping("/delete/{userId}")
-  public String deleteUser(@PathVariable("userId") String userId, Model model) {
+  public String deleteUser(@PathVariable("userId") String userId, Model model, SearchCondition sc) {
     userService.userDelete(userId);
-    List<UserVo> userLists = userService.userList();
+    List<UserVo> userLists = userService.userList(sc);
     model.addAttribute("userLists", userLists);
 
     return "user/userList";
@@ -76,15 +82,14 @@ public class UserController {
     UserVo userVo = userService.getUserDtl(userId);
     model.addAttribute("userDtl", userVo);
 
-
     return "user/userMod";
   }
 
   // 수정 버튼 클릭시 작동
   @PostMapping("/mod/{userId}")
-  public String modUser(UserVo userVo, Model model) {
+  public String modUser(UserVo userVo, Model model, SearchCondition sc) {
     userService.updateUser(userVo);
-    List<UserVo> userLists = userService.userList();
+    List<UserVo> userLists = userService.userList(sc);
     model.addAttribute("userLists", userLists);
     return "user/userList";
   }

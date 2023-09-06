@@ -1,6 +1,7 @@
 package kr.co.baseprj.vo.user;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import lombok.Builder;
@@ -23,9 +24,9 @@ public class UserVo {
   @NotBlank(message = "비밀번호를 입력해주세요")
   private String secretNum; //비밀번호
 
-  private LocalDateTime regDt; //등록일시
+  private Date regDt; //등록일시
 
-  private LocalDateTime modDt; //수정일시
+  private Date modDt; //수정일시
 
   private String regrId; //등록자 아이디 currentUser
 
@@ -37,7 +38,7 @@ public class UserVo {
 
   @Builder
   public UserVo(String userId, String userNm, String authGroupCd, String secretNum,
-      LocalDateTime regDt, LocalDateTime modDt, String regrId, String modrId, String delYn,
+      Date regDt, Date modDt, String regrId, String modrId, String delYn,
       String userDiv) {
     this.userId = userId;
     this.userNm = userNm;

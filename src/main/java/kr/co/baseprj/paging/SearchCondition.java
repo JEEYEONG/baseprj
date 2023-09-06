@@ -42,7 +42,14 @@ public class SearchCondition {
                 .build().toString();
 
     }
+    public String getUserQueryString(Integer page) {
+        // ?page=10&pageSize=10&option=A&keyword=title
+        return UriComponentsBuilder.newInstance()
+            .queryParam("page", page)
+            .queryParam("pageSize", pageSize)
+            .build().toString();
 
+    }
     public Integer getPage() {
         return page;
     }

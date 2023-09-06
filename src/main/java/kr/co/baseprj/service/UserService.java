@@ -8,6 +8,7 @@ import java.util.Optional;
 import kr.co.baseprj.common.CommonWord;
 import kr.co.baseprj.exception.NotEmptyException;
 import kr.co.baseprj.mapper.UserMapper;
+import kr.co.baseprj.paging.SearchCondition;
 import kr.co.baseprj.vo.user.UserVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +28,7 @@ public class UserService {
   @Autowired
   private UserMapper userMapper;
 
-  public void joinUser(UserVo userVo, String currentUser) {
+  public void joinUser(UserVo userVo, String currentUser){
     /*UserVo uservo = userVo.builder()
         .userId(userVo.getUserId())
         .build();*/
@@ -38,14 +39,14 @@ public class UserService {
     userVo.setUserNm(userVo.getUserNm());
     userVo.setAuthGroupCd(userVo.getAuthGroupCd());
     userVo.setSecretNum(userVo.getSecretNum());
-    userVo.setRegDt(LocalDateTime.now());
     userVo.setModDt(null);
-    userVo.setRegrId(currentUser);
     userVo.setModrId(userVo.getModrId());
     userVo.setDelYn(CommonWord.DEL_N);
     userVo.setUserDiv(userVo.getUserDiv());
 
     userMapper.saveUser(userVo);
+
+
   }
 
 //  private void validateDuplicateUser(UserVo userVo) {
@@ -56,8 +57,8 @@ public class UserService {
 //    }
 //  }
 
-  public List<UserVo> userList() {
-    return userMapper.getUserList();
+  public List<UserVo> userList(SearchCondition sc) {
+    return userMapper.getUserList(sc);
   }
 
   public UserVo getUserDtl(String userId) {
@@ -82,5 +83,9 @@ public class UserService {
       throw new NotEmptyException("아이디를 입력해주세요");
     }
     return true;
+  }
+
+  public int getResultCnt() {
+    return userMapper.findUserCnt();
   }
 }

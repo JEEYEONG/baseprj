@@ -7,22 +7,34 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+
+<!-- CSS only -->
+<link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <html>
 <head>
     <title>회원목록</title>
 
     <style>
-
       .content {
-        width: 800px;
+        width: 1000px;
         margin: 0 auto;
 
       }
 
       .userTable {
-        position: fixed;
-        width: 100%;
-        top: 170px;
+        position: relative;
+        top: 90px;
       }
 
       .table1 {
@@ -30,15 +42,16 @@
         width: 1050px;
         position: relative;
       }
+
       .table1 tr, td {
         padding: 5px;
+        border: 1px solid black;
       }
 
       .signUp {
         position: relative;
         left: 310px;
         bottom: 10px;
-
       }
 
       a {
@@ -52,6 +65,7 @@
       .signUpbtn {
         position: absolute;
         left: 670px;
+        top: 40px;
         text-align: center;
         vertical-align: middle;
         width: 70px;
@@ -61,8 +75,19 @@
         cursor: pointer;
       }
 
-      .signUp a:hover{
+      .signUp a:hover {
         text-decoration: none;
+      }
+
+      .user-pagination {
+        position: relative;
+        margin: 0 auto;
+        left: 460px;
+        top: 30px;
+      }
+
+      .page-link {
+        color: black;
       }
     </style>
 </head>
@@ -87,7 +112,9 @@
             <tbody>
             <c:forEach var="userList" items="${userLists}">
                 <tr align="center">
-                    <td><a href="/userDetail/<c:out value='${userList.userId}'/>">${userList.userId}</a></td>
+                    <td>
+                        <a href="/userDetail/<c:out value='${userList.userId}'/>">${userList.userId}</a>
+                    </td>
                     <td>${userList.userNm}</td>
                     <td>${userList.secretNum}</td>
                     <td>${userList.userDiv}</td>
@@ -96,6 +123,38 @@
             </c:forEach>
             </tbody>
         </table>
+
+
+        <div class="user-pagination">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+
+
+                    <c:if test="${page.showPrev}">
+                        <li class="page-item">
+                            <a class="page-link" href="userList?pageNum=${page.beginPage - 1}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    </c:if>
+                    <c:forEach var="i" begin="${page.beginPage}" end="${page.endPage}">
+                        <li class="page-item"><a class="page-link"
+                                                 href="<c:url value="/userList${page.getUserQueryString(i)}"/>">${i}</a></li>
+                    </c:forEach>
+                    <c:if test="${page.showNext}">
+                        <li class="page-item">
+                            <a class="page-link" href="userList?pageNum=${page.endPage - 1}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </c:if>
+                </ul>
+            </nav>
+        </div>
+
+
     </div>
 
 </div>

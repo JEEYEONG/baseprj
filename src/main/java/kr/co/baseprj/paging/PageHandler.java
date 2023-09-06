@@ -9,8 +9,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Setter
 @ToString
 public class PageHandler {
+
+  public final int NAV_SIZE = 5; // page navigation size
   private SearchCondition sc;
-  public  final int NAV_SIZE = 5; // page navigation size
   private int totalCnt; // 게시물의 총 갯수
   private int totalPage; // 전체 페이지의 갯수
   private int beginPage; // 화면에 보여줄 첫 페이지
@@ -34,23 +35,34 @@ public class PageHandler {
   }
 
   private void doPaging(int totalCnt, SearchCondition sc) {
-    this.totalPage = totalCnt / sc.getPageSize() + (totalCnt % sc.getPageSize()==0? 0:1);
+    this.totalPage = totalCnt / sc.getPageSize() + (totalCnt % sc.getPageSize() == 0 ? 0 : 1);
     this.sc.setPage(Math.min(sc.getPage(), totalPage));  // page가 totalPage보다 크지 않게
-    this.beginPage = (this.sc.getPage() -1) / NAV_SIZE * NAV_SIZE + 1; // 따로 떼어내서 테스트
+    this.beginPage = (this.sc.getPage() - 1) / NAV_SIZE * NAV_SIZE + 1; // 따로 떼어내서 테스트
     this.endPage = Math.min(beginPage + NAV_SIZE - 1, totalPage);
-    this.showPrev = beginPage!=1;
-    this.showNext = endPage!=totalPage;
+    this.showPrev = beginPage != 1;
+    this.showNext = endPage != totalPage;
   }
 
   public String getQueryString() {
     return getQueryString(this.sc.getPage());
   }
 
+  public String getUserQueryString() {
+    return getUserQueryString(this.sc.getPage());
+  }
+
   public String getQueryString(Integer page) {
     return UriComponentsBuilder.newInstance()
-        .queryParam("page",     page)
+        .queryParam("page", page)
         .queryParam("pageSize", sc.getPageSize())
-        .queryParam("groupCd",  sc.getGroupCd())
+        .queryParam("groupCd", sc.getGroupCd())
+        .build().toString();
+  }
+
+  public String getUserQueryString(Integer page) {
+    return UriComponentsBuilder.newInstance()
+        .queryParam("page", page)
+        .queryParam("pageSize", sc.getPageSize())
         .build().toString();
   }
 }
