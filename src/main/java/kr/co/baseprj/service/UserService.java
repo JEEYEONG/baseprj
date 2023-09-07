@@ -88,4 +88,9 @@ public class UserService {
   public int getResultCnt() {
     return userMapper.findUserCnt();
   }
+
+  public int checkId(String userId) {
+    int result = userMapper.checkId(userId);
+    return result;
+  }
 }

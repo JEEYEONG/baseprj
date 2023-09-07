@@ -121,7 +121,7 @@
                    placeholder="사용자 아이디를 입력해주세요."
                    >
             <input type="button" id="id-check" value="중복확인">
-            <span id="msg"></span>
+            <br><span id="msg"></span>
         </div>
         <div class="form-group">
             <label for="userNm">사용자 명</label>

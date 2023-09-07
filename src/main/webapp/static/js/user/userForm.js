@@ -3,21 +3,19 @@ $(document).ready(function () {
 
   $("#id-check").click(function () {
     var checkId = $("#userId").val();
-    var params = "?id=" + checkId;
-
     var msg = $("#msg");
 
     console.log(checkId);
 
     if (checkId == "") {
       console.log("아이디 없음")
-      alert("아이디를 입력하셍")
+      alert("아이디 입력")
       return;
     } else {
       $.ajax({
         type: "post",
         contentType: 'application/json; charset=utf-8',
-        url: "/signUp", //ajax 통신 url controller로 가는 매핑
+        url: "/idCheck", //ajax 통신 url controller로 가는 매핑
         data: JSON.stringify(
             {
               "userId": checkId
@@ -27,7 +25,7 @@ $(document).ready(function () {
         async: true, //비동기화 동작 여부
         success: function (response) {
           console.log("response : " + response)
-          if (response.trim() == "true") {
+          if (response) {
             msg.html("아이디가 이미 존재합니다.");
           } else {
             idCheck = true;
@@ -41,6 +39,9 @@ $(document).ready(function () {
   var form = document.joinForm;
 
   function join() {
+    if(idCheck) {
+
+    }
     console.log(form);
     if (!form.userId.value) {
       alert("아이디를 입력하세요.")

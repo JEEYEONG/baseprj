@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,12 +33,11 @@ public class UserController {
   @PostMapping("/signUp")
   public String signUp(@RequestBody UserVo userVo,
       @SessionAttribute(name = "currentUser", required = false) String currentUser,
-      Model model
-      ) {
+      Model model) {
     if (userService.validate(userVo)) {
     }
 
-    System.out.println("+++++++++"+userService.validate(userVo));
+    System.out.println("+++++++++" + userService.validate(userVo));
     try {
       userService.joinUser(userVo, currentUser);
     } catch (IllegalAccessError e) {
@@ -48,6 +46,17 @@ public class UserController {
 
     }
     return "redirect:/";
+  }
+
+  @ResponseBody
+  @GetMapping("/idCheck")
+  public String idCheck(@RequestBody UserVo userVo) {
+    String checkId = "N";
+    int result = userService.checkId(userVo.getUserId());
+    if (result == 1) {
+      checkId = "Y"; //아이디가 있으면 Y
+    }
+    return checkId;
   }
 
   //  회원목록
