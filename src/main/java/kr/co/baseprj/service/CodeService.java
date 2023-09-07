@@ -1,11 +1,10 @@
 package kr.co.baseprj.service;
 
 import kr.co.baseprj.paging.SearchCondition;
-import kr.co.baseprj.vo.code.GroupCodeSaveForm;
-import kr.co.baseprj.vo.code.GroupCodeVo;
-import kr.co.baseprj.vo.code.StCodeSaveForm;
+import kr.co.baseprj.vo.code.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface CodeService {
@@ -15,6 +14,8 @@ public interface CodeService {
 
     boolean isValidate(StCodeSaveForm saveForm);
 
+    boolean isValidate(GroupCdUpdateForm updateForm);
+
     Optional<GroupCodeVo> getByGroupCd(String groupCd);
 
     int getResultCnt(SearchCondition sc);
@@ -22,5 +23,13 @@ public interface CodeService {
     List<GroupCodeVo> getCodeList(SearchCondition sc);
 
     Integer getStCodeResultCnt(SearchCondition sc);
+
+    Integer save(StCodeVo stCodeVo);
+
+    List<StCodeVo> getStCodeList(SearchCondition sc);
+
+    Integer deleteStCd(Map<String, Object> param);
+
+    Integer updateGroupCd(GroupCdUpdateForm updateForm);
 
 }

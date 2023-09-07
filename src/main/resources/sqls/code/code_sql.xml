@@ -4,12 +4,17 @@
 <mapper namespace="kr.co.baseprj.mapper.CodeMapper">
     <sql id="searchCondition">
         <choose>
-            <when test="groupCd != null">
-                AND UPPER(group_cd) like concat('%', UPPER(group_cd), '%')
+            <when test="option == 'CD'">
+                AND group_cd LIKE concat('%', #{keyword}, '%')
+            </when>
+            <when test="option == 'CDNM'">
+                AND group_cd_nm LIKE concat('%', #{keyword}, '%')
             </when>
         </choose>
     </sql>
-    <select id="findCodeList" parameterType="kr.co.baseprj.paging.SearchCondition" resultType="kr.co.baseprj.vo.code.GroupCodeVo">
+
+    <select id="findCodeList" parameterType="kr.co.baseprj.paging.SearchCondition"
+            resultType="kr.co.baseprj.vo.code.GroupCodeVo">
         SELECT group_cd,
         group_cd_nm,
         descrt,
@@ -23,6 +28,7 @@
         WHERE true
         AND del_yn = 'N'
         <include refid="searchCondition"/>
+        ORDER BY reg_dt DESC
         LIMIT #{offset}, #{pageSize}
     </select>
     <select id="searchResultCnt" parameterType="kr.co.baseprj.paging.SearchCondition" resultType="int">
@@ -33,25 +39,6 @@
         AND del_yn = 'N'
         <include refid="searchCondition"/>
     </select>
-    <insert id="saveCode" parameterType="kr.co.baseprj.vo.code.GroupCodeVo">
-        insert into st_group_cd_mgmt
-        (UPPER( group_cd ),
-         group_cd_nm,
-         descrt,
-         regr_id,
-         reg_dt,
-         modr_id,
-         mod_dt,
-         del_yn)
-        values (#{groupCd},
-                #{groupCdNm},
-                #{descrt},
-                #{regrId},
-                #{regDt},
-                #{modrId},
-                #{modDt},
-                #{delYn})
-    </insert>
     <select id="findByGroupCd" resultType="kr.co.baseprj.vo.code.GroupCodeVo">
         select group_cd,
                group_cd_nm,
@@ -63,15 +50,17 @@
                del_yn
         from st_group_cd_mgmt
         WHERE true
-        AND del_yn = 'N'
-        AND UPPER(group_cd) = UPPER(#{groupCd})
+          AND del_yn = 'N'
+          AND UPPER(group_cd) = UPPER(#{groupCd})
     </select>
-    <select id="searchStCodeResultCnt" resultType="java.lang.Integer" parameterType="kr.co.baseprj.paging.SearchCondition">
+    <select id="searchStCodeResultCnt" resultType="java.lang.Integer"
+            parameterType="kr.co.baseprj.paging.SearchCondition">
         select count(*)
         from st_cd_mgmt
         where true
           AND del_yn = 'N'
           AND UPPER(group_cd) = UPPER(#{groupCd})
+        ORDER BY REG_DT DESC
     </select>
     <select id="findStCodeByCdNm" resultType="kr.co.baseprj.vo.code.StCodeVo" parameterType="map">
         select cd,
@@ -86,8 +75,85 @@
                group_cd
         from st_cd_mgmt
         where TRUE
-        AND UPPER(group_cd) = UPPER(#{groupCd})
-        AND UPPER(cd) = UPPER(cd)
+          AND UPPER(group_cd) = UPPER(#{groupCd})
+          AND cd = #{cd}
     </select>
+    <select id="findStCodeList" resultType="kr.co.baseprj.vo.code.StCodeVo" parameterType="kr.co.baseprj.paging.SearchCondition">
+        select cd,
+               cd_nm,
+               descrt,
+               displ_sort,
+               regr_id,
+               reg_dt,
+               modr_id,
+               mod_dt,
+               del_yn,
+               group_cd
+        from st_cd_mgmt
+        where TRUE
+          AND group_cd = #{groupCd}
+          AND del_yn = 'N'
+            LIMIT #{offset}
+            , #{pageSize}
+    </select>
+    <insert id="saveCode" parameterType="kr.co.baseprj.vo.code.GroupCodeVo">
+        INSERT INTO st_group_cd_mgmt
+        (group_cd,
+         group_cd_nm,
+         descrt,
+         regr_id,
+         reg_dt,
+         modr_id,
+         mod_dt,
+         del_yn)
+        VALUES (UPPER(#{groupCd}),
+                #{groupCdNm},
+                #{descrt},
+                #{regrId},
+                #{regDt},
+                #{modrId},
+                #{modDt},
+                #{delYn})
+    </insert>
+    <insert id="saveStCode" parameterType="kr.co.baseprj.vo.code.StCodeVo">
+        insert into st_cd_mgmt
+        (cd,
+         cd_nm,
+         descrt,
+         displ_sort,
+         group_cd,
+         regr_id,
+         reg_dt,
+         modr_id,
+         mod_dt,
+         del_yn)
+        values (#{cd},
+                #{stCdNm},
+                #{descrt},
+                #{displSort},
+                #{groupCd},
+                #{regrId},
+                #{regDt},
+                #{modrId},
+                #{modDt},
+                #{delYn})
+    </insert>
+
+    <update id="deleteStCd" parameterType="map">
+        UPDATE st_cd_mgmt
+        SET DEL_YN = 'Y'
+        WHERE true
+          AND GROUP_CD = #{groupCd}
+          AND CD = #{cd}
+    </update>
+    <update id="updateGroupCd" parameterType="kr.co.baseprj.vo.code.GroupCdUpdateForm">
+        UPDATE st_group_cd_mgmt
+        SET modr_id     = #{modrId},
+            mod_dt      = #{modDt},
+            group_cd_nm = #{groupCdNm},
+            descrt      = #{descrt},
+            del_yn      = #{delYn}
+        WHERE group_cd = #{groupCd}
+    </update>
 </mapper>
 

@@ -3,6 +3,7 @@ package kr.co.baseprj.mapper;
 import kr.co.baseprj.paging.SearchCondition;
 import kr.co.baseprj.vo.code.GroupCodeVo;
 import kr.co.baseprj.vo.code.StCodeVo;
+import kr.co.baseprj.vo.code.GroupCdUpdateForm;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -21,5 +22,13 @@ public interface CodeMapper {
 
     Integer searchStCodeResultCnt(SearchCondition sc);
 
-    StCodeVo findStCodeByCdNm(Map<String, Object> map);
+    Optional<StCodeVo> findStCodeByCdNm(Map<String, Object> map);
+
+    Integer saveStCode(StCodeVo stCodeVo);
+
+    List<StCodeVo> findStCodeList(SearchCondition sc);
+
+    Integer deleteStCd(Map<String, Object> param);
+
+    Integer updateGroupCd(GroupCdUpdateForm updateForm);
 }

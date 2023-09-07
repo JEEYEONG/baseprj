@@ -10,38 +10,46 @@
 <div
         class="container grid gird-rows-2 h-min w-screen mx-auto space-y-10 items-center p-2 md:p-0"
 >
-    <div
-            class="w-9/12 mx-auto border border-gray-300 p-6 grid grid-cols-1 gap-6 bg-white shadow-lg rounded-lg"
-    >
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div class="grid grid-cols-1 gap-2 border border-gray-200 p-2 rounded">
-                <div class="flex border rounded bg-gray-300 items-center p-2">
-                    <input
-                            type="text"
-                            placeholder="공통 코드"
-                            class="bg-gray-300 max-w-full focus:outline-none text-gray-700"
-                    />
+    <div class="w-9/12 mx-auto border border-gray-300 p-6 grid grid-cols-1 gap-6 bg-white shadow-lg rounded-lg">
+        <form action="/code/codeList" method="GET">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 gap-2 border border-gray-200 p-2 rounded">
+                    <div class="flex border rounded bg-gray-300 items-center p-2">
+                        <select name="option" class="bg-gray-300 focus:outline-none">
+                            <option value="CD" ${ph.sc.option == 'CD' ? "selected" : ""}>공통 코드</option>
+                            <option value="CDNM" ${ph.sc.option == 'CDNM' ? "selected" : ""}>공통 코드 명</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 gap-2 border border-gray-200 p-2 rounded">
+                    <div class="flex border rounded bg-gray-300 items-center p-2">
+                        <input
+                                type="text"
+                                name="keyword"
+                                id="keyword"
+                                placeholder="검색어를 입력해주세요"
+                                value="${ph.sc.keyword}"
+                                class="bg-gray-300 max-w-full focus:outline-none text-gray-700"
+                        />
+                        <input
+                                type="hidden"
+                                name="page"
+                                value="${param.get('page') ? param.get('page') : 1}"
+                        />
+                    </div>
                 </div>
             </div>
-            <div class="grid grid-cols-1 gap-2 border border-gray-200 p-2 rounded">
-                <div class="flex border rounded bg-gray-300 items-center p-2">
-                    <input
-                            type="text"
-                            placeholder="공통 코드 명"
-                            class="bg-gray-300 max-w-full focus:outline-none text-gray-700"
-                    />
-                </div>
+            <div class="flex justify-end mt-6">
+                <button type="button" class="p-2 border w-1/6 rounded-md bg-gray-800 text-white" id="saveForm_btn">
+                    등록
+                </button>
+                <button type="submit" class="p-2 border w-1/6 rounded-md bg-gray-800 text-white">
+                    검색
+                </button>
             </div>
-        </div>
-        <div class="flex justify-end">
-            <button class="p-2 border w-1/6 rounded-md bg-gray-800 text-white" id="saveForm_btn">
-                등록
-            </button>
-            <button class="p-2 border w-1/6 rounded-md bg-gray-800 text-white">
-                검색
-            </button>
-        </div>
+        </form>
     </div>
+
     <table class="min-w-max w-full table-auto">
         <thead>
         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -80,7 +88,7 @@
                 <td class="py-3 px-6 text-left">
                     <div class="flex items-center">
                         <div class="mr-2"></div>
-                        <span>${code.groupCdNm}</span>
+                        <a class="hover:text-blue-500 hover:underline" href="<c:url value="/code/${code.groupCd}?page=1&pagesize=5"/>">${code.groupCdNm}</a>
                     </div>
                 </td>
                 <td class="py-3 px-6 text-center">
@@ -98,16 +106,17 @@
 
     <div class="flex justify-center bg-white p-4 rounded-xl">
         <ul class="flex items-center -mx-[6px]">
-            <li class="px-[6px]">
-                <a
-                        href="javascript:void(0)"
-                        class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
-                >
+                <c:if test="${ph.showPrev}  ">
+                    <li class="px-[6px]">
+                        <a
+                                href="javascript:void(0)"
+                                class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
+                        >
           <span>
             <svg
                     width="8"
                     height="15"
-                    viewBox="0 0 8 15"
+                    viewBox="0 0 8 15"/>
                     class="fill-current stroke-current"
             >
               <path
@@ -116,45 +125,25 @@
               ></path>
             </svg>
           </span>
-                </a>
-            </li>
-            <li class="px-[6px]">
-                <a
-                        href="javascript:void(0)"
-                        class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
-                >
-                    1
-                </a>
-            </li>
-            <li class="px-[6px]">
-                <a
-                        href="javascript:void(0)"
-                        class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
-                >
-                    2
-                </a>
-            </li>
-            <li class="px-[6px]">
-                <a
-                        href="javascript:void(0)"
-                        class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
-                >
-                    3
-                </a>
-            </li>
-            <li class="px-[6px]">
-                <a
-                        href="javascript:void(0)"
-                        class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
-                >
-                    4
-                </a>
-            </li>
-            <li class="px-[6px]">
-                <a
-                        href="javascript:void(0)"
-                        class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
-                >
+                        </a>
+                    </li>
+                </c:if>
+                <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+                    <li class="px-[6px]">
+                        <a
+                                href="<c:url value="/code/codeList${ph.sc.getQueryString(i)}"/>"
+                                class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
+                        >
+                                ${i}
+                        </a>
+                    </li>
+                </c:forEach>
+                <c:if test="${ph.showNext}">
+                    <li class="px-[6px]">
+                        <a
+                                href="javascript:void(0)"
+                                class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
+                        >
           <span>
             <svg
                     width="8"
@@ -168,12 +157,12 @@
               ></path>
             </svg>
           </span>
-                </a>
-            </li>
-        </ul>
+                        </a>
+                    </li>
+                </c:if>
+            </ul>
     </div>
 </div>
-
 <script>
     $(document).ready(function () {
         $('#saveForm_btn').on('click', () => {
