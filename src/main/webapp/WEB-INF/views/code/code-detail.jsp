@@ -18,7 +18,7 @@
                 </th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="groupCd_tbody">
             <tr>
                 <td colspan="4">
                     <div class="form-group row">
@@ -46,9 +46,9 @@
             <tr>
                 <td colspan="4">
                     <div class="form-group row">
-                        <label for="displYn" class="col-sm-2 col-form-label">사용 여부</label>
+                        <label for="delYn" class="col-sm-2 col-form-label">삭제 여부</label>
                         <div class="col-sm-10">
-                            <select name="displYn" class="form-control" id="displYn">
+                            <select name="groupCd_delYn" class="form-control" id="delYn">
                                 <c:if test="${groupCode.delYn.equals('Y')}">
                                     <option selected value="Y">Y</option>
                                     <option value="N">N</option>
@@ -65,9 +65,9 @@
             <tr>
                 <td colspan="4">
                     <div class="form-group row">
-                        <label for="descrt" class="col-sm-2 col-form-label">비고</label>
+                        <label for="groupCd_descrt" class="col-sm-2 col-form-label">비고</label>
                         <div class="col-sm-10">
-                            <input type="text" name="descrt" class="form-control" id="descrt"
+                            <input type="text" name="descrt" class="form-control" id="groupCd_descrt"
                                    value="${groupCode.descrt}">
                         </div>
                     </div>
@@ -78,11 +78,15 @@
         <div class="flex space-x-4 justify-end">
             <button type="button"
                     class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    id="save_btn">
+                    data-group-cd="${groupCode.groupCd}"
+                    data-page="${param.get('page') ? param.get('page') : 1}"
+                    id="mod_btn">
                 저장
             </button>
             <button type="button"
-                    class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    onclick="location.href='/code/codeList';"
+            >
                 목록
             </button>
         </div>
@@ -91,61 +95,76 @@
             <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                 <th class="py-3 px-6 text-left">코드</th>
                 <th class="py-3 px-6 text-left">코드명</th>
-                <th class="py-3 px-6 text-center">사용여부</th>
+                <th class="py-3 px-6 text-center">삭제 여부</th>
                 <th class="py-3 px-6 text-center">비고</th>
                 <th class="py-3 px-6 text-center"></th>
             </tr>
             </thead>
             <tbody class="text-gray-600 text-sm font-light">
-            <c:if test="">
-                <tr class="border-b border-gray-200 hover:bg-gray-100">
-                    <td class="py-3 px-6 text-left whitespace-nowrap">
-                        <div class="flex items-center">
-                            <div class="mr-2">
-                                <path
-                                        fill="#80deea"
-                                        d="M24,34C11.1,34,1,29.6,1,24c0-5.6,10.1-10,23-10c12.9,0,23,4.4,23,10C47,29.6,36.9,34,24,34z M24,16	c-12.6,0-21,4.1-21,8c0,3.9,8.4,8,21,8s21-4.1,21-8C45,20.1,36.6,16,24,16z"
-                                >
-                                </path>
-                                <path
-                                        fill="#80deea"
-                                        d="M15.1,44.6c-1,0-1.8-0.2-2.6-0.7C7.6,41.1,8.9,30.2,15.3,19l0,0c3-5.2,6.7-9.6,10.3-12.4c3.9-3,7.4-3.9,9.8-2.5	c2.5,1.4,3.4,4.9,2.8,9.8c-0.6,4.6-2.6,10-5.6,15.2c-3,5.2-6.7,9.6-10.3,12.4C19.7,43.5,17.2,44.6,15.1,44.6z M32.9,5.4	c-1.6,0-3.7,0.9-6,2.7c-3.4,2.7-6.9,6.9-9.8,11.9l0,0c-6.3,10.9-6.9,20.3-3.6,22.2c1.7,1,4.5,0.1,7.6-2.3c3.4-2.7,6.9-6.9,9.8-11.9	c2.9-5,4.8-10.1,5.4-14.4c0.5-4-0.1-6.8-1.8-7.8C34,5.6,33.5,5.4,32.9,5.4z"
-                                >
-                                </path>
-                                <path
-                                        fill="#80deea"
-                                        d="M33,44.6c-5,0-12.2-6.1-17.6-15.6C8.9,17.8,7.6,6.9,12.5,4.1l0,0C17.4,1.3,26.2,7.8,32.7,19	c3,5.2,5,10.6,5.6,15.2c0.7,4.9-0.3,8.3-2.8,9.8C34.7,44.4,33.9,44.6,33,44.6z M13.5,5.8c-3.3,1.9-2.7,11.3,3.6,22.2	c6.3,10.9,14.1,16.1,17.4,14.2c1.7-1,2.3-3.8,1.8-7.8c-0.6-4.3-2.5-9.4-5.4-14.4C24.6,9.1,16.8,3.9,13.5,5.8L13.5,5.8z"
-                                >
-                                </path>
-                                <circle cx="24" cy="24" r="4" fill="#80deea"></circle>
+            <c:if test="${stCodeList != null}">
+                <c:forEach var="stCode" items="${stCodeList}">
+                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                        <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <div class="flex items-center">
+                                <div class="mr-2">
+                                    <path
+                                            fill="#80deea"
+                                            d="M24,34C11.1,34,1,29.6,1,24c0-5.6,10.1-10,23-10c12.9,0,23,4.4,23,10C47,29.6,36.9,34,24,34z M24,16	c-12.6,0-21,4.1-21,8c0,3.9,8.4,8,21,8s21-4.1,21-8C45,20.1,36.6,16,24,16z"
+                                    >
+                                    </path>
+                                    <path
+                                            fill="#80deea"
+                                            d="M15.1,44.6c-1,0-1.8-0.2-2.6-0.7C7.6,41.1,8.9,30.2,15.3,19l0,0c3-5.2,6.7-9.6,10.3-12.4c3.9-3,7.4-3.9,9.8-2.5	c2.5,1.4,3.4,4.9,2.8,9.8c-0.6,4.6-2.6,10-5.6,15.2c-3,5.2-6.7,9.6-10.3,12.4C19.7,43.5,17.2,44.6,15.1,44.6z M32.9,5.4	c-1.6,0-3.7,0.9-6,2.7c-3.4,2.7-6.9,6.9-9.8,11.9l0,0c-6.3,10.9-6.9,20.3-3.6,22.2c1.7,1,4.5,0.1,7.6-2.3c3.4-2.7,6.9-6.9,9.8-11.9	c2.9-5,4.8-10.1,5.4-14.4c0.5-4-0.1-6.8-1.8-7.8C34,5.6,33.5,5.4,32.9,5.4z"
+                                    >
+                                    </path>
+                                    <path
+                                            fill="#80deea"
+                                            d="M33,44.6c-5,0-12.2-6.1-17.6-15.6C8.9,17.8,7.6,6.9,12.5,4.1l0,0C17.4,1.3,26.2,7.8,32.7,19	c3,5.2,5,10.6,5.6,15.2c0.7,4.9-0.3,8.3-2.8,9.8C34.7,44.4,33.9,44.6,33,44.6z M13.5,5.8c-3.3,1.9-2.7,11.3,3.6,22.2	c6.3,10.9,14.1,16.1,17.4,14.2c1.7-1,2.3-3.8,1.8-7.8c-0.6-4.3-2.5-9.4-5.4-14.4C24.6,9.1,16.8,3.9,13.5,5.8L13.5,5.8z"
+                                    >
+                                    </path>
+                                    <circle cx="24" cy="24" r="4" fill="#80deea"></circle>
+                                </div>
+                                <span class="font-medium">${stCode.cd}</span>
                             </div>
-                            <span class="font-medium">${code.groupCd}</span>
-                        </div>
-                    </td>
-                    <td class="py-3 px-6 text-left">
-                        <div class="flex items-center">
-                            <div class="mr-2"></div>
-                            <span>${code.groupCdNm}</span>
-                        </div>
-                    </td>
-                    <td class="py-3 px-6 text-center">
-                        <div class="flex items-center justify-center">
-                            <span>${code.delYn}</span>
-                        </div>
-                    </td>
-                    <td class="py-3 px-6 text-center">
-                            ${code.descrt}
-                    </td>
-                </tr>
-            </c:if></tbody>
+                        </td>
+                        <td class="py-3 px-6 text-left">
+                            <div class="flex items-center">
+                                <div class="mr-2"></div>
+                                <span>${stCode.stCdNm}</span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-center">
+                            <div class="flex items-center justify-center">
+                                <span>${stCode.delYn}</span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-6 text-center">
+                                ${stCode.descrt}
+                        </td>
+                        <td class="py-3 px-6 text-center">
+                            <button type="button"
+                                    data-cd="${stCode.cd}"
+                                    data-group-cd="${stCode.groupCd}"
+                                    data-page="${param.get('page') ? param.get('page') : 1}"
+                                    class="delete-code-row-btn bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded"
+                                    id="del_btn"
+                            >
+                                삭제
+                            </button>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </c:if>
+            </tbody>
         </table>
         <div class="flex justify-center bg-white p-4 rounded-xl">
             <ul class="flex items-center -mx-[6px]">
-                <li class="px-[6px]">
-                    <a
-                            href="javascript:void(0)"
-                            class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
-                    >
+                <c:if test="${ph.showPrev}  ">
+                    <li class="px-[6px]">
+                        <a
+                                href="javascript:void(0)"
+                                class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
+                        >
           <span>
             <svg
                     width="8"
@@ -159,45 +178,25 @@
               ></path>
             </svg>
           </span>
-                    </a>
-                </li>
-                <li class="px-[6px]">
-                    <a
-                            href="javascript:void(0)"
-                            class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
-                    >
-                        1
-                    </a>
-                </li>
-                <li class="px-[6px]">
-                    <a
-                            href="javascript:void(0)"
-                            class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
-                    >
-                        2
-                    </a>
-                </li>
-                <li class="px-[6px]">
-                    <a
-                            href="javascript:void(0)"
-                            class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
-                    >
-                        3
-                    </a>
-                </li>
-                <li class="px-[6px]">
-                    <a
-                            href="javascript:void(0)"
-                            class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
-                    >
-                        4
-                    </a>
-                </li>
-                <li class="px-[6px]">
-                    <a
-                            href="javascript:void(0)"
-                            class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
-                    >
+                        </a>
+                    </li>
+                </c:if>
+                <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+                    <li class="px-[6px]">
+                        <a
+                                href="<c:url value="/code/${groupCd}${ph.sc.getQueryString(i)}"/>"
+                                class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
+                        >
+                                ${i}
+                        </a>
+                    </li>
+                </c:forEach>
+                <c:if test="${ph.showNext}">
+                    <li class="px-[6px]">
+                        <a
+                                href="javascript:void(0)"
+                                class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
+                        >
           <span>
             <svg
                     width="8"
@@ -211,8 +210,9 @@
               ></path>
             </svg>
           </span>
-                    </a>
-                </li>
+                        </a>
+                    </li>
+                </c:if>
             </ul>
         </div>
         <div class="flex space-x-4 justify-end">
@@ -227,6 +227,8 @@
                 코드 저장
             </button>
         </div>
+
+
     </div>
 </div>
 <script id="add-code-row-template" type="text/template">
@@ -238,17 +240,19 @@
             <input type="text" name="stCdNm" class="form-control">
         </td>
         <td class="py-3 px-6 text-center">
-            <select name="displYn" class="form-control">
+            <select name="delYn" class="form-control">
                 <option value="Y">Y</option>
                 <option value="N">N</option>
             </select>
         </td>
         <td class="py-3 px-6 text-center">
-            <input type="text" name="descrt" class="form-control">
+            <input type="text" name="descrt" class="form-control" id="stCd_descrt">
         </td>
         <td class="py-3 px-6 text-center">
             <button type="button"
-                    class="delete-code-row-btn bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded">
+                    class="delete-code-row-btn bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded"
+                    id="del_input_area"
+            >
                 삭제
             </button>
         </td>

@@ -8,6 +8,7 @@ import java.util.Properties;
 import javax.servlet.http.HttpSession;
 
 import kr.co.baseprj.vo.code.GroupCodeVo;
+import kr.co.baseprj.vo.code.StCodeVo;
 import kr.co.baseprj.vo.menu.MenuSaveVo;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -44,10 +45,20 @@ public class AuditInterceptor implements Interceptor {
         processAuditLogging((MenuSaveVo) parameter);
       } else if(parameter instanceof GroupCodeVo) {
         processAuditLogging((GroupCodeVo) parameter);
+      } else if(parameter instanceof StCodeVo) {
+        processAuditLogging((StCodeVo) parameter);
       }
     }
 
     return invocation.proceed(); // 실제 데이터베이스 작업 수행
+  }
+
+  private void processAuditLogging(StCodeVo stCodeVo) {
+    String userId = getUserIdFromSession();
+    Date now = Timestamp.valueOf(LocalDateTime.now());
+
+    stCodeVo.setRegrId(userId);
+    stCodeVo.setRegDt(now);
   }
 
   private void processAuditLogging(MenuSaveVo menuSaveVo) {

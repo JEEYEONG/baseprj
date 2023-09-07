@@ -3,10 +3,7 @@ package kr.co.baseprj.controller;
 import kr.co.baseprj.paging.PageHandler;
 import kr.co.baseprj.paging.SearchCondition;
 import kr.co.baseprj.service.CodeService;
-import kr.co.baseprj.vo.code.GroupCodeSaveForm;
-import kr.co.baseprj.vo.code.GroupCodeVo;
-import kr.co.baseprj.vo.code.StCodeSaveForm;
-import kr.co.baseprj.vo.code.StCodeVo;
+import kr.co.baseprj.vo.code.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -14,7 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -29,17 +29,22 @@ public class CodeController {
         PageHandler ph = new PageHandler(totalCnt, sc);
         List<GroupCodeVo> codeList = codeService.getCodeList(sc);
         model.addAttribute("codeList", codeList);
+        model.addAttribute("ph", ph);
         return "code/codeList";
     }
 
     @GetMapping("/save")
-    public String saveForm() {
+    public String saveForm(HttpServletRequest request, Model model) {
+        String referer = request.getHeader("referer");
+        model.addAttribute("referer", referer);
+
         return "code/codeSave";
     }
 
     @PostMapping("/save")
     @ResponseBody
     public String save(@RequestBody GroupCodeSaveForm saveForm) {
+
         if (codeService.isValidate(saveForm)) {
             GroupCodeVo groupCodeVo = GroupCodeVo.from(saveForm);
             Integer result = codeService.save(groupCodeVo);
@@ -61,26 +66,77 @@ public class CodeController {
         GroupCodeVo groupCode = getGroupCode(groupCd);
         model.addAttribute("groupCode", groupCode);
 
-        getStCodeList(groupCd, sc);
+        List<StCodeVo> stCodeList = getStCodeList(sc);
+
+        model.addAttribute("stCodeList", stCodeList);
+
+        model.addAttribute("sc", sc);
+        model.addAttribute("ph", ph);
         return "code/code-detail";
     }
 
     @PostMapping("/{groupCd}/{cd}")
     @ResponseBody
-    public String saveStCode(@PathVariable String cd,
-                             @PathVariable String groupCd,
-                             @RequestBody StCodeSaveForm saveForm,
-                             HttpServletRequest request
-                             ) {
+    public Map<String, Object> saveStCode(@PathVariable String cd,
+                                          @PathVariable String groupCd,
+                                          @RequestBody StCodeSaveForm saveForm,
+                                          HttpServletRequest request
+    ) {
         log.info("request.getServletPath().toString()={}", request.getServletPath().toString());
-        if (codeService.isValidate(saveForm)) {
 
-        };
-        return null;
+        String referer = request.getHeader("referer");
+        if (codeService.isValidate(saveForm)) {
+            StCodeVo stCodeVo = StCodeVo.from(saveForm);
+
+            Integer result = codeService.save(stCodeVo);
+
+            if (result != 1)
+                throw new RuntimeException("fail");
+        }
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("result", "success");
+        resultMap.put("referer", referer);
+        return resultMap;
     }
 
-    private List<StCodeVo> getStCodeList(String groupCd, SearchCondition sc) {
-        return null;
+    @PostMapping("/delete/stCd")
+    @ResponseBody
+    public Map<String, Object> deleteStCode(@RequestBody Map<String, Object> param, HttpServletRequest request) {
+        Integer result = codeService.deleteStCd(param);
+
+        String referer = request.getHeader("referer");
+
+        if (result != 1)
+            throw new RuntimeException("fail");
+
+        Map<String, Object> resultMap = new HashMap<>();
+
+        resultMap.put("result", "success");
+        resultMap.put("referer", referer);
+
+        return resultMap;
+    }
+
+    @PostMapping("/update/groupCd")
+    @ResponseBody
+    public String updateGroupCd(@RequestBody GroupCdUpdateForm updateForm) {
+
+        if (codeService.isValidate(updateForm)) {
+            Integer result = codeService.updateGroupCd(updateForm);
+
+            if (result != 1)
+                throw new RuntimeException("fail");
+        }
+
+        if (updateForm.getDelYn().equals("Y"))
+            return "delete";
+
+        return "success";
+    }
+
+    private List<StCodeVo> getStCodeList(SearchCondition sc) {
+        List<StCodeVo> stCodeList = codeService.getStCodeList(sc);
+        return stCodeList;
     }
 
     private GroupCodeVo getGroupCode(String groupCd) {

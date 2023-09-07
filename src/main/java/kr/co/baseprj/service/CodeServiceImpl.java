@@ -4,10 +4,7 @@ import kr.co.baseprj.exception.AlreadyExistException;
 import kr.co.baseprj.exception.NotEmptyException;
 import kr.co.baseprj.mapper.CodeMapper;
 import kr.co.baseprj.paging.SearchCondition;
-import kr.co.baseprj.vo.code.GroupCodeSaveForm;
-import kr.co.baseprj.vo.code.GroupCodeVo;
-import kr.co.baseprj.vo.code.StCodeSaveForm;
-import kr.co.baseprj.vo.code.StCodeVo;
+import kr.co.baseprj.vo.code.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -50,7 +47,7 @@ public class CodeServiceImpl implements CodeService {
 
     @Override
     public int getResultCnt(SearchCondition sc) {
-        return 0;
+        return codeMapper.searchResultCnt(sc);
     }
 
     @Override
@@ -67,7 +64,7 @@ public class CodeServiceImpl implements CodeService {
     public boolean isValidate(StCodeSaveForm saveForm) {
         if (!StringUtils.hasText(saveForm.getCd())) {
             throw new NotEmptyException("코드를 입력해주세요");
-        } else if (!StringUtils.hasText(saveForm.getCdNm())) {
+        } else if (!StringUtils.hasText(saveForm.getStCdNm())) {
             throw new NotEmptyException("코드 명을 입력해주세요");
         } else if (isAlreadyExist(saveForm)) {
             throw new AlreadyExistException("이미 등록 된 공통 코드 입니다.");
@@ -75,17 +72,45 @@ public class CodeServiceImpl implements CodeService {
         return true;
     }
 
+    @Override
+    public boolean isValidate(GroupCdUpdateForm updateForm) {
+        if (!StringUtils.hasText(updateForm.getGroupCdNm())) {
+            throw new NotEmptyException("구분 코드 명을 입력해주세요");
+        }
+        return true;
+    }
+
+    @Override
+    public Integer updateGroupCd(GroupCdUpdateForm updateForm) {
+        return codeMapper.updateGroupCd(updateForm);
+    }
+
+    @Override
+    public Integer save(StCodeVo stCodeVo) {
+        return codeMapper.saveStCode(stCodeVo);
+    }
+
+    @Override
+    public List<StCodeVo> getStCodeList(SearchCondition sc) {
+        return codeMapper.findStCodeList(sc);
+    }
+
+    @Override
+    public Integer deleteStCd(Map<String, Object> param) {
+        return codeMapper.deleteStCd(param);
+    }
+
     private boolean isAlreadyExist(GroupCodeSaveForm saveForm) {
         Optional<GroupCodeVo> groupCodeVo = codeMapper.findByGroupCd(saveForm.getGroupCd());
         return groupCodeVo.isEmpty() ? false : true;
     }
+
     private boolean isAlreadyExist(StCodeSaveForm saveForm) {
         Map<String, Object> map = new HashMap<>();
         map.put("cd", saveForm.getCd());
         map.put("groupCd", saveForm.getGroupCd());
 
-        StCodeVo stCodeVo = codeMapper.findStCodeByCdNm(map);
-        Optional<GroupCodeVo> groupCodeVo = codeMapper.findByGroupCd(saveForm.getGroupCd());
-        return groupCodeVo.isEmpty() ? false : true;
+        Optional<StCodeVo> stCodeVo = codeMapper.findStCodeByCdNm(map);
+        return stCodeVo.isEmpty() ? false : true;
     }
 }
