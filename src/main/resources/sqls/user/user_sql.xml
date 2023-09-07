@@ -8,7 +8,7 @@
     </insert>
 
     <select id="getUserList" resultType="kr.co.baseprj.vo.user.UserVo">
-      select USER_ID,
+      SELECT USER_ID,
              USER_NM,
              AUTH_GROUP_CD,
              SECRET_NUM,
@@ -20,6 +20,7 @@
              USER_DIV
       FROM ST_MNGR
       WHERE DEL_YN = 'N'
+      LIMIT #{offset}, #{pageSize}
     </select>
     <select id="findByUserId" resultType="kr.co.baseprj.vo.user.UserVo" parameterType="string">
       SELECT USER_ID,
@@ -35,6 +36,11 @@
       FROM ST_MNGR
       WHERE USER_ID = #{userId}
     </select>
+  <select id="findUserCnt" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    FROM st_mngr
+    WHERE DEL_YN = 'N'
+  </select>
 
   <update id="deleteUser">
     UPDATE ST_MNGR
@@ -52,7 +58,7 @@
             MOD_DT= #{modDt},
             REGR_ID= #{regrId},
             MODR_ID= #{userId},
-            DEL_YN= #{delYn},
+            DEL_YN= 'N',
             USER_DIV= #{userDiv}
     WHERE USER_ID = #{userId}
   </update>
