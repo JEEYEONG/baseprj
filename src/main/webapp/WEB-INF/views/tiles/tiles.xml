@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
-        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
   <!-- 관리자 기본 레이아웃 -->
@@ -9,42 +9,42 @@
     <put-attribute name="adminHeader" value="/WEB-INF/views/tiles/layout/adminHeader.jsp"/>
     <put-attribute name="body" value=""/>
   </definition>
-    <!--  공통 코드 저장-->
-    <definition name="*/code/save" template="/WEB-INF/views/tiles/layout/codeLayout.jsp">
-        <put-attribute name="adminHeader" value="/WEB-INF/views/tiles/layout/adminHeader.jsp"/>
-        <put-attribute name="body" value="/WEB-INF/views/code/codeSave.jsp"/>
-    </definition>
-    <!--  공통 코드 메인-->
-    <definition name="*/code/codeList" template="/WEB-INF/views/tiles/layout/codeLayout.jsp">
-        <put-attribute name="adminHeader" value="/WEB-INF/views/tiles/layout/adminHeader.jsp"/>
-        <put-attribute name="body" value="/WEB-INF/views/code/codeList.jsp"/>
-    </definition>
+  <!--  공통 코드 저장-->
+  <definition name="/code/save" template="/WEB-INF/views/tiles/layout/codeLayout.jsp">
+    <put-attribute name="adminHeader" value="/WEB-INF/views/tiles/layout/adminHeader.jsp"/>
+    <put-attribute name="body" value="/WEB-INF/views/code/codeSave.jsp"/>
+  </definition>
+  <!--  공통 코드 메인-->
+  <definition name="*/code/codeList" template="/WEB-INF/views/tiles/layout/codeLayout.jsp">
+    <put-attribute name="adminHeader" value="/WEB-INF/views/tiles/layout/adminHeader.jsp"/>
+    <put-attribute name="body" value="/WEB-INF/views/code/codeList.jsp"/>
+  </definition>
 
-    <!--  로그인 페이지 url -->
-    <definition name="*/login" template="/WEB-INF/views/tiles/layout/loginLayout.jsp">
-        <put-attribute name="body" value="/WEB-INF/views/user/login.jsp"/>
-    </definition>
-    <!--  메뉴 페이지 url-->
-    <definition name="*/menu" template="/WEB-INF/views/tiles/layout/menuLayout.jsp">
-        <put-attribute name="adminHeader" value="/WEB-INF/views/tiles/layout/adminHeader.jsp"/>
-        <put-attribute name="menuLeftSide" value="/WEB-INF/views/tiles/layout/menuLeft.jsp"/>
-        <put-attribute name="body" value="/WEB-INF/views/user/menu.jsp"/>
-    </definition>
+  <!--  로그인 페이지 url -->
+  <definition name="*/login" template="/WEB-INF/views/tiles/layout/loginLayout.jsp">
+    <put-attribute name="body" value="/WEB-INF/views/user/login.jsp"/>
+  </definition>
+  <!--  메뉴 페이지 url-->
+  <definition name="*/menu" template="/WEB-INF/views/tiles/layout/menuLayout.jsp">
+    <put-attribute name="adminHeader" value="/WEB-INF/views/tiles/layout/adminHeader.jsp"/>
+    <put-attribute name="menuLeftSide" value="/WEB-INF/views/tiles/layout/menuLeft.jsp"/>
+    <put-attribute name="body" value="/WEB-INF/views/user/menu.jsp"/>
+  </definition>
 
-    <!--메인-->
-    <definition name="main" extends="adminLayout">
-        <put-attribute name="title" value="메인페이지"/>
-        <put-attribute name="body" value="/WEB-INF/views/main.jsp"/>
-    </definition>
+  <!--메인-->
+  <definition extends="adminLayout" name="main">
+    <put-attribute name="title" value="메인페이지"/>
+    <put-attribute name="body" value="/WEB-INF/views/main.jsp"/>
+  </definition>
 
-      <!-- 공통 url 패턴 -->
-      <definition name="common/*/*" template="/WEB-INF/views/tiles/layout/emptyLayout.jsp">
-        <put-attribute name="emptyBody" value="/WEB-INF/views/common/{1}/{2}.jsp"/>
-      </definition>
+  <!-- 공통 url 패턴 -->
+  <definition name="common/login/{1}" template="/WEB-INF/views/tiles/layout/emptyLayout.jsp">
+    <put-attribute name="emptyBody" value="/WEB-INF/views/common/login/{1}.jsp"/>
+  </definition>
 
-    <!-- 2depth url 패턴 -->
-    <definition name="*/*" extends="adminLayout">
-        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp"/>
-    </definition>
+  <!-- 2depth url 패턴 -->
+  <definition extends="adminLayout" name="*/*">
+    <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp"/>
+  </definition>
 
 </tiles-definitions>

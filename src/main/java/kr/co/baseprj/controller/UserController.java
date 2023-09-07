@@ -10,8 +10,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
@@ -27,13 +30,16 @@ public class UserController {
     return "user/userForm";
   }
 
+  @ResponseBody
   @PostMapping("/signUp")
-  public String signUp(UserVo userVo,
-      @SessionAttribute(name = "currentUser", required = false) String currentUser, Model model) {
+  public String signUp(@RequestBody UserVo userVo,
+      @SessionAttribute(name = "currentUser", required = false) String currentUser,
+      Model model
+      ) {
     if (userService.validate(userVo)) {
-
     }
 
+    System.out.println("+++++++++"+userService.validate(userVo));
     try {
       userService.joinUser(userVo, currentUser);
     } catch (IllegalAccessError e) {
@@ -90,7 +96,12 @@ public class UserController {
   public String modUser(UserVo userVo, Model model, SearchCondition sc) {
     userService.updateUser(userVo);
     List<UserVo> userLists = userService.userList(sc);
+
+    int totalCnt = userService.getResultCnt();
+    PageHandler ph = new PageHandler(totalCnt, sc);
+
     model.addAttribute("userLists", userLists);
+    model.addAttribute("page", ph);
     return "user/userList";
   }
 

@@ -10,15 +10,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-
-<!-- CSS only -->
-<link rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<!-- JS, Popper.js, and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 <html>
 <head>
     <title>사용자 등록</title>
@@ -34,16 +25,17 @@
       }
 
       .form-group {
-        border-top: 1px solid dimgray ;
+        border-top: 1px solid dimgray;
         padding-top: 13px;
       }
 
-      #form-top{
-        border-top: 2px solid dimgray ;
+      #form-top {
+        border-top: 2px solid dimgray;
         padding-top: 13px;
       }
-      #form-bottom{
-        border-bottom: 2px solid dimgray ;
+
+      #form-bottom {
+        border-bottom: 2px solid dimgray;
         padding-bottom: 13px;
       }
 
@@ -56,6 +48,10 @@
 
       }
 
+      #userId {
+        width: 385px;
+      }
+
       .form-control {
         display: inline;
         width: 500px;
@@ -65,6 +61,22 @@
         border: none;
       }
 
+
+      #id-check {
+        display: inline;
+        width: 100px;
+        border: 1px solid #aaaaaa;
+        height: 38px;
+        margin-left: 10px;
+        text-align: center;
+      }
+      #msg{
+        display: inline;
+      }
+
+      #id-check:hover {
+        background-color: lightgrey;
+      }
 
 
       .btn-wrap {
@@ -76,20 +88,20 @@
       .btn-primary {
         width: 130px;
         height: 45px;
-        margin : 0 15px;
+        margin: 0 15px;
         background-color: lightgray;
         border-radius: 0px;
         border: 1px solid dimgray;
         color: black;
       }
 
-      .btn-primary:hover{
+      .btn-primary:hover {
         background-color: silver;
         border: 1px solid dimgray;
         color: black;
       }
 
-      .btn-primary:after{
+      .btn-primary:after {
         background-color: silver;
         border: 1px solid dimgray;
         color: black;
@@ -98,62 +110,53 @@
 
     </style>
 </head>
-
-<script type="text/javascript">
-  /*$(document).ready(function () {
-    var errorMessage = [[${errorMessage}]];
-      if(errorMessage != null){
-        alert(errorMessage);
-      }
-    });*/
-
-
-</script>
-
 <body>
-<form method="post" action="/signUp">
+<form method="post" action="/signUp" name="joinForm">
     <div class="container">
         <h1>사용자 등록</h1>
         <div class="form-group" id="form-top">
 
-            <label for="inputId">사용자 ID</label>
-            <input type="text" class="form-control" id="inputId" name="userId"
+            <label for="userId">사용자 ID</label>
+            <input type="text" class="form-control userid" id="userId" name="userId"
                    placeholder="사용자 아이디를 입력해주세요."
-                   required oninvalid="this.setCustomValidity('아이디를 입력해주세요.')">
+                   >
+            <input type="button" id="id-check" value="중복확인">
+            <span id="msg"></span>
         </div>
         <div class="form-group">
-            <label for="inputName">사용자 명</label>
-            <input type="text" class="form-control" id="inputName" name="userNm"
-                   placeholder="사용자 이름을 입력해주세요." required oninvalid="this.setCustomValidity('이름를 입력해주세요.')">
+            <label for="userNm">사용자 명</label>
+            <input type="text" class="form-control" id="userNm" name="userNm"
+                   placeholder="사용자 이름을 입력해주세요.">
         </div>
         <div class="form-group">
-            <label for="inputPassword">비밀번호</label>
-            <input type="password" class="form-control" id="inputPassword" name="secretNum"
-                   placeholder="사용자 비밀번호를 입력해주세요." required
-                   oninvalid="this.setCustomValidity('비밀번호를 입력해주세요.')">
+            <label for="secretNum">비밀번호</label>
+            <input type="password" class="form-control" id="secretNum" name="secretNum"
+                   placeholder="사용자 비밀번호를 입력해주세요." >
         </div>
 
         <div class="form-group">
-            <label for="inputDiv">사용자 구분</label>
-            <input type="text" class="form-control" id="inputDiv" name="userDiv"
+            <label for="userDiv">사용자 구분</label>
+            <input type="text" class="form-control" id="userDiv" name="userDiv"
                    placeholder="지점명을 입력해주세요.">
         </div>
 
         <div class="form-group" id="form-bottom">
-            <label for="inputGroup">권한 그룹 코드</label>
-            <select class="form-control" id="inputGroup" name="authGroupCd">
+            <label for="authGroupCd">권한 그룹 코드</label>
+            <select class="form-control" id="authGroupCd" name="authGroupCd">
                 <option value="root">ROOT</option>
                 <option value="admin">ADMIN</option>
-                <option value="user">USER</option>
+                <option value="user" selected>USER</option>
             </select>
         </div>
 
         <div class="btn-wrap">
-            <button type="submit" class="btn btn-primary" onclick="submit()">등록</button>
+            <button type="submit" class="btn btn-primary" onclick="join()">등록</button>
             <button type="button" class="btn btn-primary" onclick="location.href='/userList'">목록
             </button>
         </div>
     </div>
 </form>
+
+<script src="/static/js/user/userForm.js"></script>
 </body>
 </html>
