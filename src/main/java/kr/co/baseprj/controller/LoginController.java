@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +26,7 @@ public class LoginController {
   @GetMapping("/login")
   public String loginForm(Model model) {
     model.addAttribute("loginForm", new LoginFormVo());
-    return "user/login";
+    return "common/user/login";
   }
 
   @PostMapping("/login")

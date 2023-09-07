@@ -8,7 +8,7 @@
 <head></head>
 <body>
 <div
-        class="container grid gird-rows-2 h-min w-screen mx-auto space-y-10 items-center p-2 md:p-0"
+        class="container grid gird-rows-2 h-full w-screen mx-auto space-y-10 items-center p-2 md:p-0 align-center"
 >
     <div class="w-9/12 mx-auto border border-gray-300 p-6 grid grid-cols-1 gap-6 bg-white shadow-lg rounded-lg">
         <form action="/code/codeList" method="GET">
