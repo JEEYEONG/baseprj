@@ -16,8 +16,11 @@
                 <div class="grid grid-cols-1 gap-2 border border-gray-200 p-2 rounded">
                     <div class="flex border rounded bg-gray-300 items-center p-2">
                         <select name="option" class="bg-gray-300 focus:outline-none">
-                            <option value="CD" ${ph.sc.option == 'CD' ? "selected" : ""}>공통 코드</option>
-                            <option value="CDNM" ${ph.sc.option == 'CDNM' ? "selected" : ""}>공통 코드 명</option>
+                            <option value="CD" ${ph.sc.option == 'CD' ? "selected" : ""}>공통 코드
+                            </option>
+                            <option value="CDNM" ${ph.sc.option == 'CDNM' ? "selected" : ""}>공통 코드
+                                명
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -40,7 +43,8 @@
                 </div>
             </div>
             <div class="flex justify-end mt-6">
-                <button type="button" class="p-2 border w-1/6 rounded-md bg-gray-800 text-white" id="saveForm_btn">
+                <button type="button" class="p-2 border w-1/6 rounded-md bg-gray-800 text-white"
+                        id="saveForm_btn">
                     등록
                 </button>
                 <button type="submit" class="p-2 border w-1/6 rounded-md bg-gray-800 text-white">
@@ -88,12 +92,18 @@
                 <td class="py-3 px-6 text-left">
                     <div class="flex items-center">
                         <div class="mr-2"></div>
-                        <a class="hover:text-blue-500 hover:underline" href="<c:url value="/code/${code.groupCd}?page=1&pagesize=5"/>">${code.groupCdNm}</a>
+                        <a class="hover:text-blue-500 hover:underline"
+                           href="<c:url value="/code/${code.groupCd}?page=1&pagesize=5"/>">${code.groupCdNm}</a>
                     </div>
                 </td>
                 <td class="py-3 px-6 text-center">
                     <div class="flex items-center justify-center">
-                        <span>${code.delYn}</span>
+                        <c:if test="${code.delYn.equals('Y')}">
+                            <span>N</span>
+                        </c:if>
+                        <c:if test="${code.delYn.equals('N')}">
+                            <span>Y</span>
+                        </c:if>
                     </div>
                 </td>
                 <td class="py-3 px-6 text-center">
@@ -106,12 +116,12 @@
 
     <div class="flex justify-center bg-white p-4 rounded-xl">
         <ul class="flex items-center -mx-[6px]">
-                <c:if test="${ph.showPrev}  ">
-                    <li class="px-[6px]">
-                        <a
-                                href="javascript:void(0)"
-                                class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
-                        >
+            <c:if test="${ph.showPrev}  ">
+                <li class="px-[6px]">
+                    <a
+                            href="javascript:void(0)"
+                            class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
+                    >
           <span>
             <svg
                     width="8"
@@ -123,27 +133,27 @@
                       d="M7.12979 1.91389L7.1299 1.914L7.1344 1.90875C7.31476 1.69833 7.31528 1.36878 7.1047 1.15819C7.01062 1.06412 6.86296 1.00488 6.73613 1.00488C6.57736 1.00488 6.4537 1.07206 6.34569 1.18007L6.34564 1.18001L6.34229 1.18358L0.830207 7.06752C0.830152 7.06757 0.830098 7.06763 0.830043 7.06769C0.402311 7.52078 0.406126 8.26524 0.827473 8.73615L0.827439 8.73618L0.829982 8.73889L6.34248 14.6014L6.34243 14.6014L6.34569 14.6047C6.546 14.805 6.88221 14.8491 7.1047 14.6266C7.30447 14.4268 7.34883 14.0918 7.12833 13.8693L1.62078 8.01209C1.55579 7.93114 1.56859 7.82519 1.61408 7.7797L1.61413 7.77975L1.61729 7.77639L7.12979 1.91389Z"
                       stroke-width="0.3"
               ></path>
-            </svg>
+              </svg>
           </span>
-                        </a>
-                    </li>
-                </c:if>
-                <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-                    <li class="px-[6px]">
-                        <a
-                                href="<c:url value="/code/codeList${ph.sc.getQueryString(i)}"/>"
-                                class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
-                        >
-                                ${i}
-                        </a>
-                    </li>
-                </c:forEach>
-                <c:if test="${ph.showNext}">
-                    <li class="px-[6px]">
-                        <a
-                                href="javascript:void(0)"
-                                class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
-                        >
+                    </a>
+                </li>
+            </c:if>
+            <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+                <li class="px-[6px]">
+                    <a
+                            href="<c:url value="/code/codeList${ph.sc.getQueryString(i)}"/>"
+                            class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
+                    >
+                            ${i}
+                    </a>
+                </li>
+            </c:forEach>
+            <c:if test="${ph.showNext}">
+                <li class="px-[6px]">
+                    <a
+                            href="javascript:void(0)"
+                            class="w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-primary hover:border-primary hover:text-white"
+                    >
           <span>
             <svg
                     width="8"
@@ -157,18 +167,18 @@
               ></path>
             </svg>
           </span>
-                        </a>
-                    </li>
-                </c:if>
-            </ul>
+                    </a>
+                </li>
+            </c:if>
+        </ul>
     </div>
 </div>
 <script>
-    $(document).ready(function () {
-        $('#saveForm_btn').on('click', () => {
-            location.href = '/code/save';
-        });
+  $(document).ready(function () {
+    $('#saveForm_btn').on('click', () => {
+      location.href = '/code/save';
     });
+  });
 
 </script>
 </body>
