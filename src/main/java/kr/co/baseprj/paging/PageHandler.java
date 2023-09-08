@@ -9,14 +9,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Setter
 @ToString
 public class PageHandler {
-    private SearchCondition sc;
-    public final int NAV_SIZE = 5; // page navigation size
-    private int totalCnt; // 게시물의 총 갯수
-    private int totalPage; // 전체 페이지의 갯수
-    private int beginPage; // 화면에 보여줄 첫 페이지
-    private int endPage; // 화면에 보여줄 마지막 페이지
-    private boolean showNext = false; // 이후를 보여줄지의 여부. endPage==totalPage이면, showNext는 false
-    private boolean showPrev = false; // 이전을 보여줄지의 여부. beginPage==1이 아니면 showPrev는 false
+  private SearchCondition sc;
+  public  final int NAV_SIZE = 5; // page navigation size
+  private int totalCnt; // 게시물의 총 갯수
+  private int totalPage; // 전체 페이지의 갯수
+  private int beginPage; // 화면에 보여줄 첫 페이지
+  private int endPage; // 화면에 보여줄 마지막 페이지
+  private boolean showNext = false; // 이후를 보여줄지의 여부. endPage==totalPage이면, showNext는 false
+  private boolean showPrev = false; // 이전을 보여줄지의 여부. beginPage==1이 아니면 showPrev는 false
 
     public PageHandler(int totalCnt, Integer page) {
         this(totalCnt, new SearchCondition(page, 5));
@@ -50,6 +50,17 @@ public class PageHandler {
         return getQueryString(this.sc.getPage());
     }
 
+  public String getUserQueryString() {
+    return getUserQueryString(this.sc.getPage());
+  }
+
+
+  public String getUserQueryString(Integer page) {
+    return UriComponentsBuilder.newInstance()
+        .queryParam("page", page)
+        .queryParam("pageSize", sc.getPageSize())
+        .build().toString();
+  }
     public String getQueryString(Integer page) {
         return UriComponentsBuilder.newInstance()
                 .queryParam("page", page)

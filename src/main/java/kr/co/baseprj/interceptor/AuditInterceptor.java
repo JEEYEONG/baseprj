@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import kr.co.baseprj.vo.code.GroupCodeVo;
 import kr.co.baseprj.vo.code.StCodeVo;
 import kr.co.baseprj.vo.menu.MenuSaveVo;
+import kr.co.baseprj.vo.user.UserVo;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlCommandType;
@@ -45,6 +46,8 @@ public class AuditInterceptor implements Interceptor {
         processAuditLogging((MenuSaveVo) parameter);
       } else if(parameter instanceof GroupCodeVo) {
         processAuditLogging((GroupCodeVo) parameter);
+      } else if(parameter instanceof UserVo) {
+        processAuditLogging((UserVo) parameter);
       } else if(parameter instanceof StCodeVo) {
         processAuditLogging((StCodeVo) parameter);
       }
@@ -59,6 +62,16 @@ public class AuditInterceptor implements Interceptor {
 
     stCodeVo.setRegrId(userId);
     stCodeVo.setRegDt(now);
+  }
+
+  private void processAuditLogging(UserVo userVo) {
+    String userId = getUserIdFromSession();
+    Date now = Timestamp.valueOf(LocalDateTime.now());
+
+    userVo.setRegrId(userId);
+    userVo.setRegDt(now);
+    userVo.setModrId(userId);
+    userVo.setModDt(now);
   }
 
   private void processAuditLogging(MenuSaveVo menuSaveVo) {
