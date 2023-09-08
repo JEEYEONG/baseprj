@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Properties;
 import javax.servlet.http.HttpSession;
 
+import kr.co.baseprj.vo.authority.AuthMenuVo;
 import kr.co.baseprj.vo.code.GroupCodeVo;
 import kr.co.baseprj.vo.code.StCodeVo;
 import kr.co.baseprj.vo.menu.MenuSaveVo;
@@ -94,6 +95,19 @@ public class AuditInterceptor implements Interceptor {
     groupCodeVo.setRegDt(now);
 
   }
+
+  private void processAuditLogging(AuthMenuVo authMenuVo) {
+    // 감사 로그 작성 및 저장
+
+    String userId = getUserIdFromSession();
+    Date now = Timestamp.valueOf(LocalDateTime.now());
+
+    authMenuVo.setRegrId(userId);
+    authMenuVo.setRegDt(now);
+
+  }
+
+
 
   private String getUserIdFromSession() {
     ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();

@@ -25,7 +25,7 @@ public class MenuController {
 
   private final MenuService menuService;
 
-  @GetMapping
+  @GetMapping("/save/{menuCd}")
   public String menuForm(Model model) {
     List<MenuVo> menuList = menuService.getMenuList();
     model.addAttribute("menuList", menuList);
@@ -40,5 +40,11 @@ public class MenuController {
 
     }
     return null;
+  }
+
+  @GetMapping("/menuList")
+  public String menuList(Model model) {
+
+    return "menu/menuList";
   }
 }

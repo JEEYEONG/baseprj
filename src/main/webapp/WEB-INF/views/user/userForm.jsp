@@ -15,9 +15,10 @@
     <title>사용자 등록</title>
 
     <style>
-      .container {
+      .user-form-container {
         text-align: center;
         width: 800px;
+        margin: 0 auto;
       }
 
       .container h1 {
@@ -117,7 +118,7 @@
 </head>
 <body>
 <form method="post" action="/signUp" name="joinForm" onsubmit="return isUserValidate()">
-    <div class="container">
+    <div class="user-form-container">
         <h1>사용자 등록</h1>
         <div class="form-group" id="form-top">
 
