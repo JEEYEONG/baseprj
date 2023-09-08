@@ -23,6 +23,7 @@
            USER_DIV
     FROM ST_MNGR
     WHERE DEL_YN = 'N'
+    ORDER BY REG_DT desc
     LIMIT #{offset}, #{pageSize}
   </select>
   <select id="findByUserId" parameterType="string" resultType="kr.co.baseprj.vo.user.UserVo">
