@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,9 +30,8 @@ public class UserController {
     return "user/userForm";
   }
 
-  @ResponseBody
   @PostMapping("/signUp")
-  public String signUp(@RequestBody UserVo userVo,
+  public String signUp(UserVo userVo,
       @SessionAttribute(name = "currentUser", required = false) String currentUser,
       Model model) {
     if (userService.validate(userVo)) {
@@ -49,7 +49,7 @@ public class UserController {
   }
 
   @ResponseBody
-  @GetMapping("/idCheck")
+  @PostMapping ("/idCheck")
   public String idCheck(@RequestBody UserVo userVo) {
     String checkId = "N";
     int result = userService.checkId(userVo.getUserId());
@@ -102,8 +102,8 @@ public class UserController {
 
   // 수정 버튼 클릭시 작동
   @PostMapping("/mod/{userId}")
-  public String modUser(UserVo userVo, Model model, SearchCondition sc) {
-    userService.updateUser(userVo);
+  public String modUser(UserVo userVo, Model model, SearchCondition sc, @SessionAttribute(name = "currentUser", required = false) String currentUser) {
+    userService.updateUser(userVo,currentUser);
     List<UserVo> userLists = userService.userList(sc);
 
     int totalCnt = userService.getResultCnt();

@@ -59,6 +59,8 @@ public class AuditInterceptor implements Interceptor {
 
     userVo.setRegrId(userId);
     userVo.setRegDt(now);
+    userVo.setModrId(userId);
+    userVo.setModDt(now);
   }
 
   private void processAuditLogging(MenuSaveVo menuSaveVo) {

@@ -70,8 +70,13 @@
         margin-left: 10px;
         text-align: center;
       }
-      #msg{
-        display: inline;
+
+      #msg {
+        margin: 5px auto;
+        position: relative;
+        top: 4px;
+        left: -30px;
+        color: indianred;
       }
 
       #id-check:hover {
@@ -111,7 +116,7 @@
     </style>
 </head>
 <body>
-<form method="post" action="/signUp" name="joinForm">
+<form method="post" action="/signUp" name="joinForm" onsubmit="return isUserValidate()">
     <div class="container">
         <h1>사용자 등록</h1>
         <div class="form-group" id="form-top">
@@ -119,7 +124,7 @@
             <label for="userId">사용자 ID</label>
             <input type="text" class="form-control userid" id="userId" name="userId"
                    placeholder="사용자 아이디를 입력해주세요."
-                   >
+            >
             <input type="button" id="id-check" value="중복확인">
             <br><span id="msg"></span>
         </div>
@@ -131,7 +136,7 @@
         <div class="form-group">
             <label for="secretNum">비밀번호</label>
             <input type="password" class="form-control" id="secretNum" name="secretNum"
-                   placeholder="사용자 비밀번호를 입력해주세요." >
+                   placeholder="사용자 비밀번호를 입력해주세요.">
         </div>
 
         <div class="form-group">
@@ -150,7 +155,7 @@
         </div>
 
         <div class="btn-wrap">
-            <button type="submit" class="btn btn-primary" onclick="join()">등록</button>
+            <button type="submit" class="btn btn-primary" >등록</button>
             <button type="button" class="btn btn-primary" onclick="location.href='/userList'">목록
             </button>
         </div>
