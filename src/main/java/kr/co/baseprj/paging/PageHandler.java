@@ -58,11 +58,11 @@ public class PageHandler {
                 .queryParam("keyword", sc.getKeyword())
                 .build().toString();
     }
+  
   public String getUserQueryString() {
     return getUserQueryString(this.sc.getPage());
   }
-
-
+ 
 
   public String getUserQueryString(Integer page) {
     return UriComponentsBuilder.newInstance()

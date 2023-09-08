@@ -50,10 +50,20 @@ public class AuditInterceptor implements Interceptor {
         processAuditLogging((StCodeVo) parameter);
       } else if(parameter instanceof UserVo) {
         processAuditLogging((UserVo) parameter);
+      } else if(parameter instanceof StCodeVo) {
+        processAuditLogging((StCodeVo) parameter);
       }
     }
 
     return invocation.proceed(); // 실제 데이터베이스 작업 수행
+  }
+
+  private void processAuditLogging(StCodeVo stCodeVo) {
+    String userId = getUserIdFromSession();
+    Date now = Timestamp.valueOf(LocalDateTime.now());
+
+    stCodeVo.setRegrId(userId);
+    stCodeVo.setRegDt(now);
   }
 
   private void processAuditLogging(UserVo userVo) {
@@ -62,6 +72,8 @@ public class AuditInterceptor implements Interceptor {
 
     userVo.setRegrId(userId);
     userVo.setRegDt(now);
+    userVo.setModrId(userId);
+    userVo.setModDt(now);
   }
 
   private void processAuditLogging(StCodeVo stCodeVo) {

@@ -23,7 +23,6 @@
 
 
 
-
     <!--  메뉴 페이지 url-->
     <definition name="*/menu" template="/WEB-INF/views/tiles/layout/menuLayout.jsp">
         <put-attribute name="adminHeader" value="/WEB-INF/views/tiles/layout/adminHeader.jsp"/>
@@ -36,11 +35,10 @@
         <put-attribute name="title" value="메인페이지"/>
         <put-attribute name="body" value="/WEB-INF/views/main.jsp"/>
     </definition>
-
-
     <!-- 2depth url 패턴 -->
     <definition name="*/*" extends="adminLayout">
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp"/>
     </definition>
+
 
 </tiles-definitions>

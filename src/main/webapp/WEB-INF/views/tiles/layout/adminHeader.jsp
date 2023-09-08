@@ -30,7 +30,6 @@
         <div class="flex md:order-2">
             <div class="relative mr-3 md:mr-0 hidden md:block">
 
-
             </div>
             <button
                     data-collapse-toggle="mobile-menu-3"

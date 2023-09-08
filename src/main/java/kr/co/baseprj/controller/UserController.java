@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,16 +30,14 @@ public class UserController {
     return "user/userForm";
   }
 
-  @ResponseBody
   @PostMapping("/signUp")
-  public String signUp(@RequestBody UserVo userVo,
+  public String signUp(UserVo userVo,
       @SessionAttribute(name = "currentUser", required = false) String currentUser,
-      Model model
-      ) {
+      Model model) {
     if (userService.validate(userVo)) {
     }
 
-    System.out.println("+++++++++"+userService.validate(userVo));
+    System.out.println("+++++++++" + userService.validate(userVo));
     try {
       userService.joinUser(userVo, currentUser);
     } catch (IllegalAccessError e) {
@@ -48,6 +46,17 @@ public class UserController {
 
     }
     return "redirect:/";
+  }
+
+  @ResponseBody
+  @PostMapping ("/idCheck")
+  public String idCheck(@RequestBody UserVo userVo) {
+    String checkId = "N";
+    int result = userService.checkId(userVo.getUserId());
+    if (result == 1) {
+      checkId = "Y"; //아이디가 있으면 Y
+    }
+    return checkId;
   }
 
   //  회원목록
@@ -93,8 +102,8 @@ public class UserController {
 
   // 수정 버튼 클릭시 작동
   @PostMapping("/mod/{userId}")
-  public String modUser(UserVo userVo, Model model, SearchCondition sc) {
-    userService.updateUser(userVo);
+  public String modUser(UserVo userVo, Model model, SearchCondition sc, @SessionAttribute(name = "currentUser", required = false) String currentUser) {
+    userService.updateUser(userVo,currentUser);
     List<UserVo> userLists = userService.userList(sc);
 
     int totalCnt = userService.getResultCnt();
