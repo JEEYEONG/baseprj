@@ -7,9 +7,11 @@ $(document).ready(function () {
   });
   console.log('authGroup: ' + authGroup);
 
-  let authdata = $('#auth').val();
+  let authdata = $
+  // let authdata = $('#auth').val();
+  console.log(authdata)
   $('#auth').on('click', function () {
-    authdata = $('#auth').val();
+    authdata = $('#auth').data("auth");
     console.log(authdata)
   })
 
