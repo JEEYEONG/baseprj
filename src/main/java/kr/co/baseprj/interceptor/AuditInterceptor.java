@@ -1,7 +1,6 @@
 package kr.co.baseprj.interceptor;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Properties;
@@ -9,7 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import kr.co.baseprj.vo.code.GroupCodeVo;
 import kr.co.baseprj.vo.code.StCodeVo;
-import kr.co.baseprj.vo.menu.MenuSaveVo;
+import kr.co.baseprj.vo.menu.TopMenuSaveVo;
 import kr.co.baseprj.vo.user.UserVo;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -42,8 +41,8 @@ public class AuditInterceptor implements Interceptor {
       // INSERT 작업일 경우 감사 작업 수행
       Object parameter = invocation.getArgs()[1];
 
-      if (parameter instanceof MenuSaveVo) {
-        processAuditLogging((MenuSaveVo) parameter);
+      if (parameter instanceof TopMenuSaveVo) {
+        processAuditLogging((TopMenuSaveVo) parameter);
       } else if(parameter instanceof GroupCodeVo) {
         processAuditLogging((GroupCodeVo) parameter);
       } else if(parameter instanceof StCodeVo) {
@@ -76,22 +75,15 @@ public class AuditInterceptor implements Interceptor {
     userVo.setModDt(now);
   }
 
-  private void processAuditLogging(StCodeVo stCodeVo) {
-    String userId = getUserIdFromSession();
-    Date now = Timestamp.valueOf(LocalDateTime.now());
 
-    stCodeVo.setRegrId(userId);
-    stCodeVo.setRegDt(now);
-  }
-
-  private void processAuditLogging(MenuSaveVo menuSaveVo) {
+  private void processAuditLogging(TopMenuSaveVo topMenuSaveVo) {
     // 감사 로그 작성 및 저장
 
     String userId = getUserIdFromSession();
     Date now = Timestamp.valueOf(LocalDateTime.now());
-
-    menuSaveVo.setRegrId(userId);
-    menuSaveVo.setRegDt(now);
+//
+//    menuSaveVo.setRegrId(userId);
+//    menuSaveVo.setRegDt(now);
 
   }
   private void processAuditLogging(GroupCodeVo groupCodeVo) {
