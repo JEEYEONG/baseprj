@@ -50,17 +50,6 @@ public class PageHandler {
         return getQueryString(this.sc.getPage());
     }
 
-  public String getUserQueryString() {
-    return getUserQueryString(this.sc.getPage());
-  }
-
-
-  public String getUserQueryString(Integer page) {
-    return UriComponentsBuilder.newInstance()
-        .queryParam("page", page)
-        .queryParam("pageSize", sc.getPageSize())
-        .build().toString();
-  }
     public String getQueryString(Integer page) {
         return UriComponentsBuilder.newInstance()
                 .queryParam("page", page)
@@ -69,4 +58,16 @@ public class PageHandler {
                 .queryParam("keyword", sc.getKeyword())
                 .build().toString();
     }
+  
+  public String getUserQueryString() {
+    return getUserQueryString(this.sc.getPage());
+  }
+ 
+
+  public String getUserQueryString(Integer page) {
+    return UriComponentsBuilder.newInstance()
+        .queryParam("page", page)
+        .queryParam("pageSize", sc.getPageSize())
+        .build().toString();
+  }
 }

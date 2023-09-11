@@ -46,6 +46,8 @@ public class AuditInterceptor implements Interceptor {
         processAuditLogging((MenuSaveVo) parameter);
       } else if(parameter instanceof GroupCodeVo) {
         processAuditLogging((GroupCodeVo) parameter);
+      } else if(parameter instanceof StCodeVo) {
+        processAuditLogging((StCodeVo) parameter);
       } else if(parameter instanceof UserVo) {
         processAuditLogging((UserVo) parameter);
       } else if(parameter instanceof StCodeVo) {
@@ -71,6 +73,14 @@ public class AuditInterceptor implements Interceptor {
     userVo.setRegrId(userId);
     userVo.setRegDt(now);
 
+  }
+
+  private void processAuditLogging(StCodeVo stCodeVo) {
+    String userId = getUserIdFromSession();
+    Date now = Timestamp.valueOf(LocalDateTime.now());
+
+    stCodeVo.setRegrId(userId);
+    stCodeVo.setRegDt(now);
   }
 
   private void processAuditLogging(MenuSaveVo menuSaveVo) {
