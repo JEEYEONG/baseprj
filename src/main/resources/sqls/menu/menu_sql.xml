@@ -2,74 +2,134 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.baseprj.mapper.MenuMapper">
-  <resultMap id="MenuVo" type="kr.co.baseprj.vo.menu.MenuVo">
-    <result property="dateTime" column="date_column" javaType="java.time.LocalDateTime"/>
-  </resultMap>
-  <insert id="save" parameterType="kr.co.baseprj.vo.menu.MenuSaveVo">
-    <!-- MenuSaveVo에 필요한 필드를 대입하여 INSERT 쿼리를 생성 -->
-    INSERT INTO st_menu_mgmt (
-    menu_cd,
-    menu_nm,
-    depth,
-    link_url,
-    regr_id,
-    reg_dt,
-    modr_id,
-    mod_dt,
-    displ_yn
-    )
-    VALUES (
-    #{menuCd},
-    #{menuNm},
-    0,
-    #{linkUrl},
-    #{regrId},
-    #{regDt},
-    #{modrId},
-    #{modrDt},
-    #{displYn}
-    )
-  </insert>
-  <select id="findByMenuCd" parameterType="string" resultType="kr.co.baseprj.vo.menu.MenuVo">
-    select menu_cd,
-           menu_nm,
-           depth,
-           cate_cd,
-           dvs_cd,
-           sect_cd,
-           cate_sort,
-           dvs_sort,
-           sect_sort,
-           link_url,
-           del_yn,
-           modr_id,
-           mod_dt,
-           regr_id,
-           reg_dt,
-           icon,
-           displ_yn
-    from st_menu_mgmt
-    where menu_cd = #{menuCd}
-  </select>
+
   <select id="findMenuList" resultType="kr.co.baseprj.vo.menu.MenuVo">
-    select menu_cd,
-           menu_nm,
-           depth,
-           cate_cd,
-           dvs_cd,
-           sect_cd,
-           cate_sort,
-           dvs_sort,
-           sect_sort,
-           link_url,
-           del_yn,
-           modr_id,
-           mod_dt,
-           regr_id,
-           reg_dt,
-           icon,
-           displ_yn
-    from st_menu_mgmt
+    SELECT MENU_CD,
+           MENU_NM,
+           CATE_CD,
+           DEPTH,
+           DVS_CD,
+           SECT_CD,
+           CATE_SORT,
+           DVS_SORT,
+           SECT_SORT,
+           LINK_URL,
+           DEL_YN,
+           MODR_ID,
+           MOD_DT,
+           REGR_ID,
+           REG_DT,
+           ICON,
+           DISPL_YN,
+           CASE DEPTH
+             WHEN 1 THEN CATE_SORT
+             WHEN 2 THEN DVS_SORT
+             END as menuOrder
+    FROM st_menu_mgmt
+    WHERE true = true
+      AND DEL_YN = 'N'
+    ORDER BY menuOrder
   </select>
+  <select id="findByMenuCd" resultType="kr.co.baseprj.vo.menu.MenuVo" parameterType="string">
+    SELECT MENU_CD,
+           MENU_NM,
+           DEPTH,
+           CATE_CD,
+           DVS_CD,
+           SECT_CD,
+           CATE_SORT,
+           DVS_SORT,
+           SECT_SORT,
+           LINK_URL,
+           DEL_YN,
+           MODR_ID,
+           MOD_DT,
+           REGR_ID,
+           REG_DT,
+           ICON,
+           DISPL_YN
+    FROM st_menu_mgmt
+    WHERE true = true
+      AND DEL_YN = 'N'
+      AND MENU_CD = #{menuCd}
+  </select>
+  <select id="getMaxCateCd" resultType="java.lang.Integer">
+    SELECT IFNULL((MAX(CATE_CD) + 1), 1) AS maxCateCd
+    FROM st_menu_mgmt
+    WHERE DEPTH = 1
+  </select>
+  <select id="getMaxDvsCd" resultType="java.lang.Integer">
+   SELECT IFNULL((MAX(DVS_CD) + 1), 1) AS maxDvsCd
+   FROM st_menu_mgmt
+   WHERE DEPTH = 2
+  </select>
+
+  <select id="findSubmenuList" resultType="kr.co.baseprj.vo.menu.MenuVo" parameterType="map">
+    /*서브 메뉴 조회*/
+    SELECT MENU_CD,
+           MENU_NM,
+           DEPTH,
+           CATE_CD,
+           DVS_CD,
+           SECT_CD,
+           CATE_SORT,
+           DVS_SORT,
+           SECT_SORT,
+           LINK_URL,
+           DEL_YN,
+           MODR_ID,
+           MOD_DT,
+           REGR_ID,
+           REG_DT,
+           ICON,
+           DISPL_YN
+    , CASE DEPTH
+    WHEN 1 THEN CATE_SORT
+    WHEN 2 THEN DVS_SORT
+    END				AS menuOrder
+    FROM st_menu_mgmt
+    WHERE
+    DEL_YN ='N'
+    AND CATE_CD = #{cateCd}
+    <![CDATA[
+		AND DEPTH > #{depth}
+		]]>
+    ORDER BY menuOrder
+  </select>
+  <insert id="saveMenu" parameterType="kr.co.baseprj.vo.menu.MenuVo">
+    INSERT INTO st_menu_mgmt (MENU_CD,
+                              MENU_NM,
+                              DEPTH,
+                              CATE_CD,
+                              DVS_CD,
+                              CATE_SORT,
+                              DVS_SORT,
+                              LINK_URL,
+                              DEL_YN,
+                              MODR_ID,
+                              MOD_DT,
+                              REGR_ID,
+                              REG_DT,
+                              ICON,
+                              DISPL_YN)
+
+    VALUES (
+            #{menuCd},
+            #{menuNm},
+            #{depth},
+            #{cateCd},
+            #{dvsCd},
+            #{cateSort},
+            #{dvsSort},
+            #{linkUrl},
+            #{delYn},
+            #{modrId},
+            #{modDt},
+            #{regrId},
+            #{regrDt},
+            #{icon},
+            #{displYn}
+           )
+  </insert>
 </mapper>
 
