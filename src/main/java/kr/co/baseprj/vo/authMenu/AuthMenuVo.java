@@ -1,4 +1,4 @@
-package kr.co.baseprj.vo.authority;
+package kr.co.baseprj.vo.authMenu;
 
 import java.util.Date;
 import kr.co.baseprj.vo.menu.MenuVo;
@@ -14,7 +14,7 @@ public class AuthMenuVo {
   private String useYn; //사용여부
   private String regrId; //등록자아이디
   private Date regDt; //등록일시
-  private String DelYt; //삭제여부
+  private String DelYn; //삭제여부
   private String modrId; // 수정자아이디
   private Date modDt; //수정일시
 
@@ -22,13 +22,13 @@ public class AuthMenuVo {
   private UserVo userVo; // authGroupCd
 
   @Builder
-  public AuthMenuVo(String useYn, String regrId, Date regDt, String delYt, String modrId,
+  public AuthMenuVo(String useYn, String regrId, Date regDt, String delYn, String modrId,
       Date modDt,
       MenuVo menuVo, UserVo userVo) {
     this.useYn = useYn;
     this.regrId = regrId;
     this.regDt = regDt;
-    DelYt = delYt;
+    this.DelYn = delYn;
     this.modrId = modrId;
     this.modDt = modDt;
     this.menuVo = menuVo;

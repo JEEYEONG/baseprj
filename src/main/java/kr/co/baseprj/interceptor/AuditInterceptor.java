@@ -1,13 +1,12 @@
 package kr.co.baseprj.interceptor;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Properties;
 import javax.servlet.http.HttpSession;
 
-import kr.co.baseprj.vo.authority.AuthMenuVo;
+import kr.co.baseprj.vo.authMenu.AuthMenuVo;
 import kr.co.baseprj.vo.code.GroupCodeVo;
 import kr.co.baseprj.vo.code.StCodeVo;
 import kr.co.baseprj.vo.menu.MenuSaveVo;
@@ -71,8 +70,7 @@ public class AuditInterceptor implements Interceptor {
 
     userVo.setRegrId(userId);
     userVo.setRegDt(now);
-    userVo.setModrId(userId);
-    userVo.setModDt(now);
+
   }
 
   private void processAuditLogging(MenuSaveVo menuSaveVo) {

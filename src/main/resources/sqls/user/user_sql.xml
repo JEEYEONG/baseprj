@@ -58,6 +58,8 @@
         USER_NM= #{userNm},
         AUTH_GROUP_CD= #{authGroupCd},
         SECRET_NUM= #{secretNum},
+        MOD_DT = #{modDt},
+        MODR_ID=#{modrId},
         DEL_YN= 'N',
         USER_DIV= #{userDiv}
     WHERE USER_ID = #{userId}

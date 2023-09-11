@@ -37,6 +37,7 @@
         position: absolute;
         top: 100px;
       }
+
       .menu-view {
         position: absolute;
         border: 1px solid #aaaaaa;
@@ -90,57 +91,93 @@
         font-weight: bold;
       }
 
-      .saveBtn{
+      .saveBtn {
         border: 1px solid #aaaaaa;
         position: absolute;
-        top: ;
+        top: 750px;
+        left: 928px;
       }
 
+      .saveBtn .save {
+        width: 120px;
+        height: 48px;
+      }
     </style>
 
 </head>
 <body>
-<div class="auth-menu-container">
-    <div class="auth-select">
-        <p>권한 선택</p>
-        <select class="auth-group">
-            <option value="all">전체</option>
-            <option value="root">ROOT</option>
-            <option value="admin">ADMIN</option>
-            <option value="user">USER</option>
-        </select>
-    </div>
-    <div class="menu-wrap">
-        <div class="menu-view">
-            <div class="menu-title">MENU VIEW</div>
+<%--<input type="hidden" id="authGroupCd" value="${userList.authGroupCd}">--%>
+<form method="post" action="/authMenu/save">
 
+    <div class="auth-menu-container">
 
+        <div class="auth-select">
+            <p>권한 선택</p>
+            <select class="auth-group" id="auth-group">
+                <option value="all">전체</option>
+                <option value="root">ROOT</option>
+                <option value="admin">ADMIN</option>
+                <option value="user">USER</option>
+            </select>
         </div>
-        <div class="button-wrap">
-            <div class="inBtn">
-                <button class="all-in">>></button>
-                <button class="one-in">></button>
+        <div class="menu-wrap">
+            <div class="menu-view">
+                <div class="menu-title">MENU VIEW</div>
+                <%--전체메뉴가 나오고--%>
+
+                <div class="menu-list">
+                    <c:forEach var="menu" items="${menuList}">
+                        <ul id="prev">
+                                <%--<li data-example="1" id="example">${menu.menuCd}</li>--%>
+                            <c:if test="${menu.depth eq 1}">
+                                <li data-auth="1" id="auth">${menu.menuNm}</li>
+                            </c:if>
+                            <c:if test="${menu.depth eq 2}">
+                                <li>${menu.menuNm}</li>
+                            </c:if>
+                        </ul>
+                    </c:forEach>
+                </div>
+
+
             </div>
-            <div class="outBtn">
-                <button class="one-out"><</button>
-                <button class="all-out"><<</button>
+            <div class="button-wrap">
+                <div class="inBtn">
+                    <button class="all-in" onclick="moveToNextAll()">>></button>
+                    <button class="one-in" onclick="moveToNext()">></button>
+                </div>
+                <div class="outBtn">
+                    <button class="one-out"><</button>
+                    <button class="all-out"><<</button>
+
+                </div>
+
 
             </div>
+            <div class="auth-menu-list">
+                <div class="auth-title">권한 목록</div>
+                <%--권한에 따른 메뉴만 나오고--%>
+
+                <%--<c:if test="${userList.authGroupCd eq 'root'}">--%>
+                <c:forEach var="menu" items="${menuList}">
+                    <ul id="next">
+                            <%--<li data-example="1" id="example">${menu.menuCd}</li>--%>
+                            <%--<li><input type="hidden" name="authGroupCd"
+                                       value="${userList.authGroupCd}">${menu.menuNm}
+                            </li>--%>
+                        <li>${menu.menuNm}</li>
+                    </ul>
+                </c:forEach>
+                <%--</c:if>--%>
 
 
+            </div>
         </div>
-        <div class="auth-menu-list">
-            <div class="auth-title">권한 목록</div>
-
-
+        <div class="saveBtn">
+            <button type="submit" class="save">저장</button>
         </div>
     </div>
-    <div class="saveBtn">
-        저장
-
-    </div>
-</div>
-
-
+    <script src="/static/js/menu/menuList.js"></script>
+</form>
 </body>
 </html>

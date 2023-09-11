@@ -42,9 +42,5 @@ public class MenuController {
     return null;
   }
 
-  @GetMapping("/menuList")
-  public String menuList(Model model) {
 
-    return "menu/menuList";
-  }
 }
