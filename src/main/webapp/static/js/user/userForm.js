@@ -7,7 +7,7 @@ $(document).ready(function () {
 
     console.log(checkId);
 
-    if (checkId == "") {
+    if (checkId === "") {
       console.log("아이디 없음")
       alert("아이디를 입력해주세요.")
       return;

@@ -3,7 +3,6 @@ package kr.co.baseprj.service;
 import java.util.List;
 import kr.co.baseprj.mapper.AuthMenuMapper;
 import kr.co.baseprj.vo.authMenu.AuthMenuVo;
-import kr.co.baseprj.vo.menu.MenuSaveVo;
 import kr.co.baseprj.vo.menu.MenuVo;
 import kr.co.baseprj.vo.user.UserVo;
 import lombok.RequiredArgsConstructor;

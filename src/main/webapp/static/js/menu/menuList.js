@@ -1,35 +1,47 @@
 $(document).ready(function () {
   let authGroup = $('#auth-group').val();
+  let authMenu = $('#allList').val();
 
-  $('#auth-group').on('change', function() {
+  $('#auth-group').on('change', function () {
     authGroup = $('#auth-group').val();
     console.log(authGroup);
   });
   console.log('authGroup: ' + authGroup);
 
-  let authdata = $('#auth').val();
-  $('#auth').on('click', function () {
-    authdata = $('#auth').val();
-    console.log(authdata)
-  })
+  $('.menu').on('click', function () {
+    authMenu = $(this).data("auth");
+    console.log(authMenu);
+
+
+  });
+
+
+
+
+   $("#save-btn").click(function () {
+
+
+   });
+
+
 
 });
 
 function moveToNext() {
 
-  const prev = document.querySelector("#prev");
-  const next = document.querySelector("#next");
+  let allList = document.getElementById("allList");
+  let authMenu = document.getElementById("authMenu");
 
-  console.log("prev")
+  console.log("authMenu에 추가");
 
-  next.insertBefore(prev.firstChild, next.firstChild);
-  next.appendChild(prev.firstChild);
+  authMenu.appendChild(allList);
 }
-function moveToNextAll() {
-  console.log()
-  const prev = document.querySelector("#prev");
-  const next = document.querySelector("#next");
 
-  next.insertBefore(prev.firstChild, next.firstChild);
-  next.appendChild(prev.firstChild);
+function moveToNextAll() {
+  let allList = document.getElementById("allList");
+  let authMenu = document.getElementById("authMenu");
+
+  console.log("authMenu에 추가");
+
+  authMenu.appendChild(allList);
 }

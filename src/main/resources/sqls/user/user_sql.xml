@@ -52,6 +52,15 @@
     WHERE USER_ID = #{userId}
   </select>
 
+
+
+
+  <!--권한 조회 해오는-->
+  <select id="checkAuth" resultType="java.lang.String">
+    SELECT AUTH_GROUP_CD
+    FROM st_mngr
+  </select>
+
   <update id="updateUser">
     UPDATE ST_MNGR
     SET USER_ID      = #{userId},

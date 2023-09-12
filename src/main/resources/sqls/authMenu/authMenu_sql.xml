@@ -14,8 +14,31 @@
   </insert>
 
   <select id="getMenuList" resultType="kr.co.baseprj.vo.menu.MenuVo">
-    SELECT MENU_CD, MENU_NM, DEPTH, CATE_CD, DVS_CD, SECT_CD, CATE_SORT, DVS_SORT, SECT_SORT, LINK_URL, DEL_YN, MODR_ID, MOD_DT, REGR_ID, REG_DT, ICON, DISPL_YN
+    SELECT MENU_CD,
+           MENU_NM,
+           CATE_CD,
+           DEPTH,
+           DVS_CD,
+           SECT_CD,
+           CATE_SORT,
+           DVS_SORT,
+           SECT_SORT,
+           LINK_URL,
+           DEL_YN,
+           MODR_ID,
+           MOD_DT,
+           REGR_ID,
+           REG_DT,
+           ICON,
+           DISPL_YN,
+           CASE DEPTH
+             WHEN 1 THEN CATE_SORT
+             WHEN 2 THEN DVS_SORT
+             END as menuOrder
     FROM st_menu_mgmt
+    WHERE true = true
+      /*AND DEL_YN = 'N'*/
+    ORDER BY MENU_CD, menuOrder
   </select>
 
   <select id="getUserList" resultType="kr.co.baseprj.vo.user.UserVo">

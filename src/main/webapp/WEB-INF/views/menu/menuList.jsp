@@ -102,12 +102,18 @@
         width: 120px;
         height: 48px;
       }
+
+      #allList li:hover {
+        background-color: burlywood;
+        cursor: pointer;
+
+      }
     </style>
 
 </head>
 <body>
 <%--<input type="hidden" id="authGroupCd" value="${userList.authGroupCd}">--%>
-<form method="post" action="/authMenu/save">
+<%--<form method="post" action="/authMenu/save">--%>
 
     <div class="auth-menu-container">
 
@@ -126,14 +132,13 @@
                 <%--전체메뉴가 나오고--%>
 
                 <div class="menu-list">
-                    <c:forEach var="menu" items="${menuList}">
-                        <ul id="prev">
-                                <%--<li data-example="1" id="example">${menu.menuCd}</li>--%>
+                    <c:forEach var="menu" items="${menuList}" >
+                        <ul id="allList" class="menu" data-auth="${menu.menuCd}">
                             <c:if test="${menu.depth eq 1}">
-                                <li data-auth="1" id="auth">${menu.menuNm}</li>
+                                <li>${menu.menuNm}</li>
                             </c:if>
                             <c:if test="${menu.depth eq 2}">
-                                <li>${menu.menuNm}</li>
+                                <li id="list1">${menu.menuNm}</li>
                             </c:if>
                         </ul>
                     </c:forEach>
@@ -158,14 +163,9 @@
                 <div class="auth-title">권한 목록</div>
                 <%--권한에 따른 메뉴만 나오고--%>
 
-                <%--<c:if test="${userList.authGroupCd eq 'root'}">--%>
                 <c:forEach var="menu" items="${menuList}">
-                    <ul id="next">
-                            <%--<li data-example="1" id="example">${menu.menuCd}</li>--%>
-                            <%--<li><input type="hidden" name="authGroupCd"
-                                       value="${userList.authGroupCd}">${menu.menuNm}
-                            </li>--%>
-                        <li>${menu.menuNm}</li>
+                    <ul id="authMenu">
+                        <%--<li>${menu.menuNm}</li>--%>
                     </ul>
                 </c:forEach>
                 <%--</c:if>--%>
@@ -174,10 +174,10 @@
             </div>
         </div>
         <div class="saveBtn">
-            <button type="submit" class="save">저장</button>
+            <button type="button" id="save-btn" class="save">저장</button>
         </div>
     </div>
     <script src="/static/js/menu/menuList.js"></script>
-</form>
+
 </body>
 </html>
