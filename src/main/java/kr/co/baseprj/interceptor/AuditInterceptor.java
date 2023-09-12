@@ -1,6 +1,7 @@
 package kr.co.baseprj.interceptor;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Properties;
