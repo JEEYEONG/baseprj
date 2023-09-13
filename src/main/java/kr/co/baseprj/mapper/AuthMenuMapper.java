@@ -10,9 +10,11 @@ import org.apache.ibatis.annotations.Mapper;
 public interface AuthMenuMapper {
 
 
-  void saveMenu(AuthMenuVo authMenuVo);
+  Integer saveMenu(AuthMenuVo authMenuVo);
 
   List<MenuVo> getMenuList();
 
   List<UserVo> getUserList();
+
+  List<AuthMenuVo> getAMenuList();
 }

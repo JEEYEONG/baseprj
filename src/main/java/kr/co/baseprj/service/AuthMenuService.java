@@ -11,19 +11,26 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AuthMenuService {
+
   private final AuthMenuMapper authMenuMapper;
 
-  public void save(AuthMenuVo authMenuVo) {
-    authMenuMapper.saveMenu(authMenuVo);
+  public int save(AuthMenuVo authMenuVo) {
 
+    authMenuVo.setUseYn("Y");
+    authMenuVo.setDelYn("N");
+    authMenuVo.setModrId(authMenuVo.getModrId());
+    authMenuVo.setModDt(authMenuVo.getModDt());
 
+    Integer result = authMenuMapper.saveMenu(authMenuVo);
+    return result;
   }
 
   public List<MenuVo> menuList() {
     return authMenuMapper.getMenuList();
   }
 
-  public List<UserVo> userList() {
-    return authMenuMapper.getUserList();
+
+  public List<AuthMenuVo> authMenuList() {
+    return authMenuMapper.getAMenuList();
   }
 }

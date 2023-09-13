@@ -1,12 +1,10 @@
 package kr.co.baseprj.interceptor;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Properties;
 import javax.servlet.http.HttpSession;
-
 import kr.co.baseprj.vo.authMenu.AuthMenuVo;
 import kr.co.baseprj.vo.code.GroupCodeVo;
 import kr.co.baseprj.vo.code.StCodeVo;
@@ -45,14 +43,16 @@ public class AuditInterceptor implements Interceptor {
 
       if (parameter instanceof TopMenuSaveVo) {
         processAuditLogging((TopMenuSaveVo) parameter);
-      } else if(parameter instanceof GroupCodeVo) {
+      } else if (parameter instanceof GroupCodeVo) {
         processAuditLogging((GroupCodeVo) parameter);
-      } else if(parameter instanceof StCodeVo) {
+      } else if (parameter instanceof StCodeVo) {
         processAuditLogging((StCodeVo) parameter);
-      } else if(parameter instanceof UserVo) {
+      } else if (parameter instanceof UserVo) {
         processAuditLogging((UserVo) parameter);
-      } else if(parameter instanceof StCodeVo) {
+      } else if (parameter instanceof StCodeVo) {
         processAuditLogging((StCodeVo) parameter);
+      } else if (parameter instanceof AuthMenuVo) {
+        processAuditLogging((AuthMenuVo) parameter);
       }
     }
 
@@ -87,6 +87,7 @@ public class AuditInterceptor implements Interceptor {
 //    menuSaveVo.setRegDt(now);
 
   }
+
   private void processAuditLogging(GroupCodeVo groupCodeVo) {
     // 감사 로그 작성 및 저장
 
@@ -108,7 +109,6 @@ public class AuditInterceptor implements Interceptor {
     authMenuVo.setRegDt(now);
 
   }
-
 
 
   private String getUserIdFromSession() {

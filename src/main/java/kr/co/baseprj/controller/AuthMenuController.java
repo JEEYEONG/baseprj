@@ -29,10 +29,10 @@ public class AuthMenuController {
   @GetMapping("/list")
   public String menuList(Model model) {
     List<MenuVo> menuList = authMenuService.menuList();
-    /*List<UserVo> userList = authMenuService.userList();*/
+    List<AuthMenuVo> authMenuList = authMenuService.authMenuList();
 
     model.addAttribute("menuList", menuList);
-    /*model.addAttribute("userList", userList);*/
+    model.addAttribute("authMenuList", authMenuList);
 
     return "menu/menuList";
   }
@@ -62,11 +62,16 @@ public class AuthMenuController {
     return "menu/menuList/";
   }
 
+  @ResponseBody
   @PostMapping("/save")
-  public String saveMenu(AuthMenuVo authMenuVo, Model model) {
-    authMenuService.save(authMenuVo);
+  public String saveMenu(@RequestBody AuthMenuVo authMenuVo) {
 
-    return "redirect:/";
+    Integer result = authMenuService.save(authMenuVo);
+    if (result != 1){
+      return "fail";
+    }
+
+    return "success";
 
   }
 }

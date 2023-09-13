@@ -18,7 +18,6 @@ public class AuthMenuVo {
   private String DelYn; //삭제여부
   private String modrId; // 수정자아이디
   private Date modDt; //수정일시
-
   private String menuCd; // menuCd
 
 

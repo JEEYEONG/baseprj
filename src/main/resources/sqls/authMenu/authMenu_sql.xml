@@ -6,11 +6,9 @@
 
 
   <insert id="saveMenu" parameterType="kr.co.baseprj.vo.authMenu.AuthMenuVo">
-    SELECT MENU_CD FROM st_menu_mgmt
-      INSERT INTO st_auth_menu
-    (MENU_CD,USE_YN, REGR_ID, REG_DT, DEL_YN, MODR_ID, MOD_DT, AUTH_GROUP_CD)
-    VALUES (#{menuCd},#{useYn}, #{regrId}, #{regDt}, #{DelYn}, #{modrId}, #{modDt}, #{authGroupCd})
-
+    INSERT INTO st_auth_menu
+    (MENU_CD, USE_YN, REGR_ID, REG_DT, DEL_YN, MODR_ID, MOD_DT, AUTH_GROUP_CD)
+    VALUES (#{menuCd}, #{useYn}, #{regrId}, #{regDt}, #{DelYn}, #{modrId}, #{modDt}, #{authGroupCd})
   </insert>
 
   <select id="getMenuList" resultType="kr.co.baseprj.vo.menu.MenuVo">
@@ -37,7 +35,7 @@
              END as menuOrder
     FROM st_menu_mgmt
     WHERE true = true
-      /*AND DEL_YN = 'N'*/
+      AND DEL_YN = 'N'
     ORDER BY MENU_CD, menuOrder
   </select>
 
@@ -53,6 +51,12 @@
            DEL_YN,
            USER_DIV
     FROM ST_MNGR
+  </select>
+  
+  <select id="getAMenuList" resultType="kr.co.baseprj.vo.authMenu.AuthMenuVo">
+    SELECT MENU_CD, USE_YN, REGR_ID, REG_DT, DEL_YN, MODR_ID, MOD_DT, AUTH_GROUP_CD
+    FROM st_auth_menu
+    /*WHERE authGroupCd = #{authGroupCd}*/
   </select>
 
 </mapper>
