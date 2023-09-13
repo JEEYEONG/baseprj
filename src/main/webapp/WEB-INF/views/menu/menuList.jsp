@@ -103,11 +103,7 @@
         height: 48px;
       }
 
-      #allList li:hover {
-        background-color: burlywood;
-        cursor: pointer;
 
-      }
     </style>
 
 </head>
@@ -138,7 +134,7 @@
                                 <li>${menu.menuNm}</li>
                             </c:if>
                             <c:if test="${menu.depth eq 2}">
-                                <li id="list1">${menu.menuNm}</li>
+                                <li style="text-indent: 10px;">${menu.menuNm}</li>
                             </c:if>
                         </ul>
                     </c:forEach>

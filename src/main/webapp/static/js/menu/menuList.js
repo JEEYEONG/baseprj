@@ -13,7 +13,9 @@ $(document).ready(function () {
     console.log(authMenu);
 
 
+
   });
+
 
 
 
@@ -24,6 +26,25 @@ $(document).ready(function () {
    });
 
 
+
+});
+
+document.addEventListener('DOMContentLoaded',function () {
+  let allList = document.querySelectorAll('li');
+  console.log(allList);
+  allList.forEach(function (authMenu) {
+    authMenu.addEventListener('click', function () {
+      console.log(authMenu);
+      this.style.backgroundColor = "lightsteelblue";
+      this.style.width = "400px";
+
+
+      let authmMenu = document.getElementById('authMenu');//이동할 위치
+      authmMenu.appendChild(this);
+
+    });
+
+  });
 
 });
 
