@@ -28,7 +28,7 @@
     FROM st_menu_mgmt
     WHERE true = true
       AND DEL_YN = 'N'
-    ORDER BY menuOrder
+    ORDER BY MENU_CD, menuOrder
   </select>
   <select id="findByMenuCd" resultType="kr.co.baseprj.vo.menu.MenuVo" parameterType="string">
     SELECT MENU_CD,

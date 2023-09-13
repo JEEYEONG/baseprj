@@ -23,4 +23,6 @@ public interface UserMapper {
   int findUserCnt();
 
   int checkId(String userId);
+
+  String checkAuth(String authGroupCd);
 }

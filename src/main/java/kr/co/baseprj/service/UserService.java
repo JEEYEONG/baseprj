@@ -79,4 +79,9 @@ public class UserService {
     int result = userMapper.checkId(userId);
     return result;
   }
+
+  public String checkAuth(String authGroupCd) {
+    String result = userMapper.checkAuth(authGroupCd);
+    return result;
+  }
 }

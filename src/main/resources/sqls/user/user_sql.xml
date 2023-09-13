@@ -23,6 +23,7 @@
            USER_DIV
     FROM ST_MNGR
     WHERE DEL_YN = 'N'
+    ORDER BY REG_DT desc
     LIMIT #{offset}, #{pageSize}
   </select>
   <select id="findByUserId" parameterType="string" resultType="kr.co.baseprj.vo.user.UserVo">
@@ -51,12 +52,23 @@
     WHERE USER_ID = #{userId}
   </select>
 
+
+
+
+  <!--권한 조회 해오는-->
+  <select id="checkAuth" resultType="java.lang.String">
+    SELECT AUTH_GROUP_CD
+    FROM st_mngr
+  </select>
+
   <update id="updateUser">
     UPDATE ST_MNGR
     SET USER_ID      = #{userId},
         USER_NM= #{userNm},
         AUTH_GROUP_CD= #{authGroupCd},
         SECRET_NUM= #{secretNum},
+        MOD_DT = #{modDt},
+        MODR_ID=#{modrId},
         DEL_YN= 'N',
         USER_DIV= #{userDiv}
     WHERE USER_ID = #{userId}

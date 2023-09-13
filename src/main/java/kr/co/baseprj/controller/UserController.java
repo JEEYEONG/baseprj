@@ -37,7 +37,6 @@ public class UserController {
     if (userService.validate(userVo)) {
     }
 
-    System.out.println("+++++++++" + userService.validate(userVo));
     try {
       userService.joinUser(userVo, currentUser);
     } catch (IllegalAccessError e) {

@@ -1,11 +1,13 @@
 package kr.co.baseprj.interceptor;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Properties;
 import javax.servlet.http.HttpSession;
 
+import kr.co.baseprj.vo.authMenu.AuthMenuVo;
 import kr.co.baseprj.vo.code.GroupCodeVo;
 import kr.co.baseprj.vo.code.StCodeVo;
 import kr.co.baseprj.vo.menu.TopMenuSaveVo;
@@ -71,8 +73,7 @@ public class AuditInterceptor implements Interceptor {
 
     userVo.setRegrId(userId);
     userVo.setRegDt(now);
-    userVo.setModrId(userId);
-    userVo.setModDt(now);
+
   }
 
 
@@ -96,6 +97,19 @@ public class AuditInterceptor implements Interceptor {
     groupCodeVo.setRegDt(now);
 
   }
+
+  private void processAuditLogging(AuthMenuVo authMenuVo) {
+    // 감사 로그 작성 및 저장
+
+    String userId = getUserIdFromSession();
+    Date now = Timestamp.valueOf(LocalDateTime.now());
+
+    authMenuVo.setRegrId(userId);
+    authMenuVo.setRegDt(now);
+
+  }
+
+
 
   private String getUserIdFromSession() {
     ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
