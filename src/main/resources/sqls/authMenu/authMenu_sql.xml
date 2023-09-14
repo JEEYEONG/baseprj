@@ -11,7 +11,7 @@
     VALUES (#{menuCd}, #{useYn}, #{regrId}, #{regDt}, #{DelYn}, #{modrId}, #{modDt}, #{authGroupCd})
   </insert>
 
-  <select id="getMenuList" resultType="kr.co.baseprj.vo.menu.MenuVo">
+  <select id="getMenuList" resultType="kr.co.baseprj.vo.menu.MenuVo" parameterType="string">
     SELECT MENU_CD,
            MENU_NM,
            CATE_CD,
@@ -36,7 +36,21 @@
     FROM st_menu_mgmt
     WHERE true = true
       AND DEL_YN = 'N'
+    <choose>
+      <when test="auth == all"></when>
+      <when test="auth == root">
+        AND AUTH_GROUP = 'ROOT'
+      </when>
+    <when test="auth == admin">
+      AND AUTH_GROUP = 'ADMIN'
+    </when>
+      <when test="auth == USER">
+        AND AUTH_GROUP = 'USER'
+      </when>
+
+    </choose>
     ORDER BY MENU_CD, menuOrder
+
   </select>
 
   <select id="getUserList" resultType="kr.co.baseprj.vo.user.UserVo">

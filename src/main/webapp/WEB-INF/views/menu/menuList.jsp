@@ -158,17 +158,28 @@
         <div class="auth-menu-list">
             <div class="auth-title">권한 목록</div>
             <%--권한에 따른 메뉴만 나오고--%>
+            <c:forEach var="auth" items="${authMenuList}">
+                <c:if test="${auth.authGroupCd == 'user'}">
+                    <ul id="authMenu" class="authmenu">
+                        <c:forEach var="menu" items="${menuList}">
+                            <c:if test="${menu.depth eq 1}">
+                                <c:choose>
+                                    <c:when test="${menu.menuCd eq auth.menuCd}">
+                                        <li>${menu.menuNm}</li>
+                                    </c:when>
+                                </c:choose>
+                            </c:if>
 
-            <c:forEach var="menu" items="${menuList}">
-                <ul id="authMenu" class="authmenu" data-authmenu="${menu.menuCd}">
-
-                    <c:if test="${menu.depth eq 1 and m}">
-                        <li>${menu.menuNm}</li>
-                    </c:if>
-                    <c:if test="${menu.depth eq 2}">
-                        <li style="text-indent: 10px;">${menu.menuNm}</li>
-                    </c:if>
-                </ul>
+                            <c:if test="${menu.depth eq 2}">
+                                <c:choose>
+                                    <c:when test="${menu.menuCd eq auth.menuCd}">
+                                        <li style="text-indent: 10px;">${menu.menuNm}</li>
+                                    </c:when>
+                                </c:choose>
+                            </c:if>
+                        </c:forEach>
+                    </ul>
+                </c:if>
             </c:forEach>
 
 

@@ -8,10 +8,10 @@ $(document).ready(function () {
   });
   console.log('authGroup: ' + authGroup);
 
+  /*data-로 담아준 값 콘솔 출력*/
   $('.menu').on('click', function () {
     authMenu = $(this).data("menu");
     console.log(authMenu);
-
   });
 
   $("#save-btn").click(function () {
@@ -19,24 +19,24 @@ $(document).ready(function () {
     let menuCd = authMenu;
     console.log(menuCd);
     let authGroupCd = $('#auth-group').val();
-    console.log("menucd, auth : "+ menuCd, authGroupCd);
+    console.log("menucd, auth : " + menuCd, authGroupCd);
 
     $.ajax({
       type: "post",
       contentType: "application/json; charset=utf-8",
-      url: "/authMenu/save", // 실제 요청할 URL 설정
-      data: JSON.stringify({
-        menuCd: menuCd,
-        authGroupCd: authGroupCd,
-      }),
+      url: "/authMenu/save", //ajax 통신 url controller로 가는 매핑
+      data: JSON.stringify(
+          {
+            menuCd: menuCd,
+            authGroupCd: authGroupCd,
+          }),
       success: function (response) {
-        if(response === "success") {
+        if (response === "success") {
           alert('메뉴 등록을 완료했습니다.');
           location.href = "/authMenu/list";
         }
       },
     })
-
 
   });
 
@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function () {
       let authmMenu = document.getElementById('authMenu');//이동할 위치
       authmMenu.appendChild(this);//클릭한 li 요소 이동
 
-
     });
 
   });
@@ -62,21 +61,3 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-function moveToNext() {
-
-  let allList = document.getElementById("allList");
-  let authMenu = document.getElementById("authMenu");
-
-  console.log("authMenu에 추가");
-
-  authMenu.appendChild(allList);
-}
-
-function moveToNextAll() {
-  let allList = document.getElementById("allList");
-  let authMenu = document.getElementById("authMenu");
-
-  console.log("authMenu에 추가");
-
-  authMenu.appendChild(allList);
-}

@@ -37,24 +37,7 @@ public class AuthMenuController {
     return "menu/menuList";
   }
 
-  @ResponseBody
-  @PostMapping("/authGroup")
-  public String authGroup(@RequestBody UserVo userVo) {
-    String auth = "";
-    String result = userService.checkAuth(userVo.getAuthGroupCd());
 
-    System.out.println(result);
-
-    if (result == "root") {
-      auth = "root";
-    } else if (result == "admin") {
-      auth = "admin";
-    } else {
-      auth = "user";
-    }
-
-    return auth;
-  }
 
 
   @GetMapping("/save")
