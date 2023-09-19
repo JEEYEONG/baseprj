@@ -1,12 +1,11 @@
-/*
 package kr.co.baseprj.controller;
 
 import java.util.List;
-import kr.co.baseprj.mgmt.userMgmt.UserService;
-import kr.co.baseprj.mgmt.userMgmt.UserVo;
 import kr.co.baseprj.service.AuthMenuService;
+import kr.co.baseprj.service.UserService;
 import kr.co.baseprj.vo.authMenu.AuthMenuVo;
 import kr.co.baseprj.vo.menu.MenuVo;
+import kr.co.baseprj.vo.user.UserVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -30,14 +29,10 @@ public class AuthMenuController {
   @GetMapping("/list")
   public String menuList(Model model) {
     List<MenuVo> menuList = authMenuService.menuList();
-    */
-/*List<UserVo> userList = authMenuService.userList();*//*
-
+    /*List<UserVo> userList = authMenuService.userList();*/
 
     model.addAttribute("menuList", menuList);
-    */
-/*model.addAttribute("userList", userList);*//*
-
+    /*model.addAttribute("userList", userList);*/
 
     return "menu/menuList";
   }
@@ -75,4 +70,3 @@ public class AuthMenuController {
 
   }
 }
-*/

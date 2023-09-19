@@ -1,4 +1,3 @@
-/*
 package kr.co.baseprj.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,4 +21,3 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     return true;
   }
 }
-*/

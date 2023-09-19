@@ -1,15 +1,17 @@
 package kr.co.baseprj.interceptor;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Properties;
 import javax.servlet.http.HttpSession;
-import kr.co.baseprj.mgmt.userMgmt.UserVo;
+
 import kr.co.baseprj.vo.authMenu.AuthMenuVo;
 import kr.co.baseprj.vo.code.GroupCodeVo;
 import kr.co.baseprj.vo.code.StCodeVo;
 import kr.co.baseprj.vo.menu.TopMenuSaveVo;
+import kr.co.baseprj.vo.user.UserVo;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlCommandType;
