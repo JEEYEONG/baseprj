@@ -1,54 +1,87 @@
-package kr.co.baseprj.controller;
+package kr.co.baseprj.mgmt.userMgmt;
 
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import kr.co.baseprj.common.base.BaseController;
+import kr.co.baseprj.common.base.PageNavigator;
+import kr.co.baseprj.common.utils.UserSessUtil;
 import kr.co.baseprj.paging.PageHandler;
 import kr.co.baseprj.paging.SearchCondition;
-import kr.co.baseprj.service.UserService;
-import kr.co.baseprj.vo.user.UserVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
-@RequiredArgsConstructor
 @Slf4j
-public class UserController {
+@RequiredArgsConstructor
+public class UserController extends BaseController {
 
   private final UserService userService;
 
-  //  회원등록페이지 이동
-  @GetMapping("/signUp")
-  public String signUp() {
-    return "user/userForm";
+  private final UserDao userDao;
+  private HttpServletRequest request;
+
+
+  /**
+   * 회원 등록 페이지로 이동합니다.
+   *
+   * @return mgmt/user/userDetail
+   */
+  @GetMapping("/insertUser")
+  public String insertUser() {
+    return "mgmt/user/userDetail";
   }
 
-  @PostMapping("/signUp")
-  public String signUp(UserVo userVo,
-      @SessionAttribute(name = "currentUser", required = false) String currentUser,
-      Model model) {
-    if (userService.validate(userVo)) {
-    }
+  /**
+   * user 등록
+   *
+   * @param userVo
+   * @param currentUser
+   * @param model
+   * @return
+   * @throws Exception
+   */
+  @PostMapping("/insertUser")
+  @ResponseBody
+  public String insertUser(UserVo userVo, String currentUser, Model model) throws Exception {
 
+    /*ResultVo resultVo = new ResultVo();*/
+
+    /*// Validation Check
+    if (result.hasErrors()) {
+      resultVo.setResultCode(Constant.BINDING_ERRPR_CODE);
+      resultVo.setResultMsg(getErrMsgValidAnnotation(result));
+
+      return resultVo.toString();
+    }*/
     try {
-      userService.joinUser(userVo, currentUser);
+      /*UserVo.setRegrId(UserSessUtil.getUserId(getRequest()));*/
+
+      currentUser = UserSessUtil.getUserId(getRequest());
+
+      userService.insertUser(userVo, currentUser);
+
+      System.out.println("userVo = " + userVo);
+      System.out.println("currentUser = " + currentUser);
+
     } catch (IllegalAccessError e) {
       model.addAttribute("errorMessage", "등록 중 에러가 발생하였습니다.");
-      return "user/userForm";
-
+      return "mgmt/user/userDetail";
     }
     return "redirect:/";
   }
 
+
+/*
+/** 아이디 중복 검사
   @ResponseBody
-  @PostMapping ("/idCheck")
+  @PostMapping("/idCheck")
   public String idCheck(@RequestBody UserVo userVo) {
     String checkId = "N";
     int result = userService.checkId(userVo.getUserId());
@@ -57,20 +90,34 @@ public class UserController {
     }
     return checkId;
   }
+  */
 
-  //  회원목록
+
+  /**
+   * user 목록 조회
+   * @param model
+   * @param page
+   * @param userVo
+   * @return
+   * @throws Exception
+   */
   @GetMapping("/userList")
-  public String userList(Model model, SearchCondition sc) {
-    int totalCnt = userService.getResultCnt();
-    PageHandler ph = new PageHandler(totalCnt, sc);
+  public String userList(Model model, PageNavigator page, UserVo userVo) throws Exception {
+    page = makePageNavigator();
 
-    List<UserVo> userLists = userService.userList(sc);
+    List<UserVo> userLists = userService.userLists(userVo);
 
-    model.addAttribute("userLists", userLists);
-    model.addAttribute("page", ph);
+    List<UserVo> userList = userService.userList(userVo, page);
+    page.setTotalSize(userService.userListCount(userVo, page));
+
+    model.addAttribute("userList", userList);
+    model.addAttribute("s", userVo);
+    model.addAttribute("p", page);
+
     return "user/userList";
   }
 
+/*
   //  회원 상세보기
   @GetMapping(value = {"/userDetail/{userId}", "/userDetail"})
   public String userDetail(Model model, @PathVariable("userId") String userId) {
@@ -101,8 +148,9 @@ public class UserController {
 
   // 수정 버튼 클릭시 작동
   @PostMapping("/mod/{userId}")
-  public String modUser(UserVo userVo, Model model, SearchCondition sc, @SessionAttribute(name = "currentUser", required = false) String currentUser) {
-    userService.updateUser(userVo,currentUser);
+  public String modUser(UserVo userVo, Model model, SearchCondition sc,
+      @SessionAttribute(name = "currentUser", required = false) String currentUser) {
+    userService.updateUser(userVo, currentUser);
     List<UserVo> userLists = userService.userList(sc);
 
     int totalCnt = userService.getResultCnt();
@@ -112,5 +160,7 @@ public class UserController {
     model.addAttribute("page", ph);
     return "user/userList";
   }
+
+  */
 
 }
