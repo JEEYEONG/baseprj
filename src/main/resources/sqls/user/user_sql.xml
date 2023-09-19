@@ -17,6 +17,18 @@
     WHERE 1 = 1
       AND DEL_YN = 'N'
   </sql>
+  <!--user 목록 조회-->
+  <select id="userList" resultType="kr.co.baseprj.mgmt.userMgmt.UserVo">
+    <include refid="page.ADD_PAGE_SQL_HEAD" />
+    <include refid="USER_BASIC"/>
+    <include refid="page.ADD_PAGE_SQL" />
+  </select>
+  <!--user 목록 조회 총 건수-->
+  <select id="userListCount" resultType="int">
+    <include refid="USER_BASIC" />
+  </select>
+
+
   <!--  userId로 user 한 명을 조회 후 반환한다 -->
   <select id="findUserByUserId" parameterType="string" resultType="kr.co.baseprj.mgmt.userMgmt.UserVo">
     <include refid="USER_BASIC"/>
@@ -29,30 +41,10 @@
     VALUES (#{userId}, #{userNm}, #{authGroupCd}, #{secretNum}, #{regDt}, #{modDt}, #{regrId},
             #{modrId}, #{delYn}, #{userDiv});
   </insert>
-  <!--user 목록 조회-->
-  <select id="userList" resultType="kr.co.baseprj.mgmt.userMgmt.UserVo">
-    <include refid="page.ADD_PAGE_SQL_HEAD" />
-    <include refid="USER_BASIC"/>
-    <include refid="page.ADD_PAGE_SQL" />
-  </select>
-  <!--user 목록 조회 총 건수-->
-  <select id="userListCount" resultType="int">
-    <include refid="page.TOTAL_PAGE_SQL_HEAD" />
-    <include refid="USER_BASIC" />
-    <include refid="page.TOTAL_PAGE_SQL_TAIL" />
-  </select>
 
   <select id="userLists" resultType="kr.co.baseprj.mgmt.userMgmt.UserVo">
     <include refid="USER_BASIC"/>
   </select>
-
-
-
-
-
-
-
-
 
   <!--
 
