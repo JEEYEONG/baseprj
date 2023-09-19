@@ -5,17 +5,13 @@ import javax.servlet.http.HttpServletRequest;
 import kr.co.baseprj.common.base.BaseController;
 import kr.co.baseprj.common.base.PageNavigator;
 import kr.co.baseprj.common.utils.UserSessUtil;
-import kr.co.baseprj.paging.PageHandler;
-import kr.co.baseprj.paging.SearchCondition;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
 @Slf4j
@@ -108,13 +104,14 @@ public class UserController extends BaseController {
 
      /*List<UserVo> userList = userService.userList(userVo, page);*/
     page.setTotalSize(userService.userListCount(userVo, page));
+    System.out.println(page.getTotalSize());
 
     model.addAttribute("userLists", userLists);
     /*model.addAttribute("userList", userList);*/
     model.addAttribute("s", userVo);
     model.addAttribute("p", page);
 
-    return "user/userList";
+    return "mgmt/user/userList";
   }
 
 /*

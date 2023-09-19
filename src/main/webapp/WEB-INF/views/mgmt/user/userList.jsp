@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fw" uri="kr.co.soundtag.tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,6 @@
       .content {
         width: 1000px;
         margin: 0 auto;
-
       }
 
       .userTable {
@@ -76,13 +76,13 @@
 </head>
 <body>
 <form name="dataForm" id="dataForm" method="post">
-    <%--<input type="hidden" id="agencyId" name="agencyId">
-    <input type='hidden' name='tranMod' id='tranMod'>--%>
+    <input type="hidden" id="userId" name="userId">
+    <input type='hidden' name='tranMod' id='tranMod'>
     <input type='hidden' name='currentPage' id='currentPage' value='${p.currentPage}'/>
-    <div class="content">
 
+    <div class="content">
         <div class="signUp">
-            <a class="signUpbtn" href="/signUp">등록</a>
+            <a class="signUpbtn" href="/insertUser">등록</a>
         </div>
 
         <div class="userTable">
@@ -112,10 +112,22 @@
             </table>
 
 
+            <div class="table_func">
+                <%--<div class="table_view w130">
+                    <fw:select grpCd="PAGE_PER_CNT" eventHandler="" name="rowsPerPage" id="rowsPerPage" classVal="" defVal="" defTxt="" selectedCd="${p.rowsPerPage}" exceptCd=""></fw:select>
+                </div>--%>
+                <div class="boardPager">
+                    <div class="pc_num">총 ${p.totalSize}개</div>
+                    <fw:pageNavi data="p" formId="dataForm"></fw:pageNavi>
+                </div>
+                <div class="w130"></div>
+            </div>
+
+            <%--
+            예전 페이지네이션
             <div class="user-pagination">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
-
 
                         <c:if test="${page.showPrev}">
                             <li class="page-item">
@@ -141,6 +153,7 @@
                     </ul>
                 </nav>
             </div>
+            --%>
 
 
         </div>

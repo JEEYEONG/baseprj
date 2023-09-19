@@ -18,13 +18,6 @@ public class UserDao {
     private SqlSession sqlSession;
 
 
-
-    public List<UserVo> getSampleList() {
-        UserVo paramVO = new UserVo();
-        return sqlSession.selectList(NAME_SPACE + "selectSampleList", paramVO);
-    }
-
-
     /**
      * user 등록
      * @param userVo

@@ -17,6 +17,10 @@ server:
     session:
       timeout: 1200m
 
+page:
+  rowsPerPage: 10
+
+
 #local
 ---
 spring:

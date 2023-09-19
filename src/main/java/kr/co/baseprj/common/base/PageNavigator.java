@@ -11,7 +11,7 @@ public class PageNavigator {
 
 
 	int currentPage;
-	int rowsPerPage=10;
+	private int rowsPerPage;
 	int startRow;
 	int endRow;
 	int totalSize;
@@ -21,6 +21,7 @@ public class PageNavigator {
 	int pageBlock = 10;
 
 	public PageNavigator() {
+
 	}
 
 	public PageNavigator(int i, int j) {
@@ -28,6 +29,9 @@ public class PageNavigator {
 		setRowsPerPage(j);
 	}
 
+	public PageNavigator(int rowsPerPage) {
+		this.rowsPerPage = rowsPerPage;
+	}
 	// 현재 페이지 셋팅
 	public void setCurrentPage(int currentPage) {
 		if (currentPage < 1)

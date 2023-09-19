@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
-@Controller
+
 public class BaseController {
 
   private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
@@ -22,7 +22,7 @@ public class BaseController {
   @Autowired(required = true)
   private HttpServletRequest request;
 
- /* @Value("${page.rowsPerPage}")*/
+  @Value("${page.rowsPerPage}")
   private int defaultRowsPerPage;
 
   @Value("${spring.profiles.active}")
