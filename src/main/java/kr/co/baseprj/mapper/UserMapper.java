@@ -1,9 +1,11 @@
+/*
 package kr.co.baseprj.mapper;
 
 import java.util.List;
 import java.util.Optional;
+import kr.co.baseprj.mgmt.userMgmt.UserVo;
 import kr.co.baseprj.paging.SearchCondition;
-import kr.co.baseprj.vo.user.UserVo;
+
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -25,4 +27,6 @@ public interface UserMapper {
   int checkId(String userId);
 
   String checkAuth(String authGroupCd);
+
 }
+*/

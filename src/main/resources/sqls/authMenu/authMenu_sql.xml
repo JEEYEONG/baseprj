@@ -41,7 +41,7 @@
     ORDER BY MENU_CD, menuOrder
   </select>
 
-  <select id="getUserList" resultType="kr.co.baseprj.vo.user.UserVo">
+  <select id="getUserList" resultType="kr.co.baseprj.mgmt.userMgmt.UserVo">
     SELECT USER_ID,
            USER_NM,
            AUTH_GROUP_CD,
