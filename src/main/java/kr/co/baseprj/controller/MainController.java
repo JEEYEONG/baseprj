@@ -1,4 +1,4 @@
-package kr.co.baseprj.common;
+package kr.co.baseprj.controller;
 
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
     @GetMapping("/")
     public String main(HttpServletResponse response) throws IOException {
-        return "redirect:/";
+        return "redirect:/userList";
     }
 }

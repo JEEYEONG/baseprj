@@ -1,6 +1,8 @@
 package kr.co.baseprj.vo.authMenu;
 
 import java.util.Date;
+import kr.co.baseprj.vo.menu.MenuVo;
+import kr.co.baseprj.vo.user.UserVo;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
