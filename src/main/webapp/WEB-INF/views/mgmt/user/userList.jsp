@@ -75,71 +75,78 @@
     </style>
 </head>
 <body>
-<div class="content">
+<form name="dataForm" id="dataForm" method="post">
+    <%--<input type="hidden" id="agencyId" name="agencyId">
+    <input type='hidden' name='tranMod' id='tranMod'>--%>
+    <input type='hidden' name='currentPage' id='currentPage' value='${p.currentPage}'/>
+    <div class="content">
 
-    <div class="signUp">
-        <a class="signUpbtn" href="/signUp">등록</a>
-    </div>
-
-    <div class="userTable">
-        <table border="1" align="center" class="table1">
-            <thead>
-            <tr align="center" bgcolor="#dcdcdc">
-                <td><b>사용자 ID</b></td>
-                <td><b>사용자 명</b></td>
-                <td><b>비밀번호</b></td>
-                <td><b>사용자 구분</b></td>
-                <td><b>권한 그룹 코드</b></td>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="userList" items="${userLists}">
-                <tr align="center">
-                    <td>
-                        <a href="/userDetail/<c:out value='${userList.userId}'/>">${userList.userId}</a>
-                    </td>
-                    <td>${userList.userNm}</td>
-                    <td>${userList.secretNum}</td>
-                    <td>${userList.userDiv}</td>
-                    <td>${userList.authGroupCd}</td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-
-
-        <div class="user-pagination">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-
-
-                    <c:if test="${page.showPrev}">
-                        <li class="page-item">
-                            <a class="page-link" href="userList?pageNum=${page.beginPage - 1}"
-                               aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                    </c:if>
-                    <c:forEach var="i" begin="${page.beginPage}" end="${page.endPage}">
-                        <li class="page-item"><a class="page-link"
-                                                 href="<c:url value="/userList${page.getUserQueryString(i)}"/>">${i}</a></li>
-                    </c:forEach>
-                    <c:if test="${page.showNext}">
-                        <li class="page-item">
-                            <a class="page-link" href="userList?pageNum=${page.endPage - 1}"
-                               aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </c:if>
-                </ul>
-            </nav>
+        <div class="signUp">
+            <a class="signUpbtn" href="/signUp">등록</a>
         </div>
 
+        <div class="userTable">
+            <table border="1" align="center" class="table1">
+                <thead>
+                <tr align="center" bgcolor="#dcdcdc">
+                    <td><b>사용자 ID</b></td>
+                    <td><b>사용자 명</b></td>
+                    <td><b>비밀번호</b></td>
+                    <td><b>사용자 구분</b></td>
+                    <td><b>권한 그룹 코드</b></td>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="userList" items="${userLists}">
+                    <tr align="center">
+                        <td>
+                            <a href="/userDetail/<c:out value='${userList.userId}'/>">${userList.userId}</a>
+                        </td>
+                        <td>${userList.userNm}</td>
+                        <td>${userList.secretNum}</td>
+                        <td>${userList.userDiv}</td>
+                        <td>${userList.authGroupCd}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+
+
+            <div class="user-pagination">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+
+
+                        <c:if test="${page.showPrev}">
+                            <li class="page-item">
+                                <a class="page-link" href="userList?pageNum=${page.beginPage - 1}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        </c:if>
+                        <c:forEach var="i" begin="${page.beginPage}" end="${page.endPage}">
+                            <li class="page-item"><a class="page-link"
+                                                     href="<c:url value="/userList${page.getUserQueryString(i)}"/>">${i}</a>
+                            </li>
+                        </c:forEach>
+                        <c:if test="${page.showNext}">
+                            <li class="page-item">
+                                <a class="page-link" href="userList?pageNum=${page.endPage - 1}"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </c:if>
+                    </ul>
+                </nav>
+            </div>
+
+
+        </div>
 
     </div>
 
-</div>
+</form>
 </body>
 </html>

@@ -64,6 +64,11 @@ public class UserDao {
         return sqlSession.selectOne(NAME_SPACE + "userListCount", paramMap);
     }
 
+    /**
+     * 테스트용
+     * @param userVo
+     * @return
+     */
     public List<UserVo> userLists(UserVo userVo) {
         return sqlSession.selectList(NAME_SPACE + "userLists", userVo);
     }

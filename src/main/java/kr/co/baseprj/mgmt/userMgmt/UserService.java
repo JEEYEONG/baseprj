@@ -29,13 +29,13 @@ public class UserService {
   SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:sss");
   Date now = Timestamp.valueOf(LocalDateTime.now());
 
-  public void insertUser(UserVo userVo, String currentUser) {
+  public void insertUser(UserVo userVo) {
 
     userVo.setUserId(userVo.getUserId());
     userVo.setUserNm(userVo.getUserNm());
     userVo.setAuthGroupCd(userVo.getAuthGroupCd());
     userVo.setSecretNum(userVo.getSecretNum());
-    userVo.setRegrId(currentUser);
+    userVo.setRegrId(userVo.getRegrId());
     userVo.setRegDt(now);
     userVo.setModDt(null);
     userVo.setModrId(userVo.getModrId());

@@ -42,14 +42,13 @@ public class UserController extends BaseController {
    * user 등록
    *
    * @param userVo
-   * @param currentUser
    * @param model
    * @return
    * @throws Exception
    */
   @PostMapping("/insertUser")
   @ResponseBody
-  public String insertUser(UserVo userVo, String currentUser, Model model) throws Exception {
+  public String insertUser(UserVo userVo, Model model) throws Exception {
 
     /*ResultVo resultVo = new ResultVo();*/
 
@@ -61,14 +60,14 @@ public class UserController extends BaseController {
       return resultVo.toString();
     }*/
     try {
-      /*UserVo.setRegrId(UserSessUtil.getUserId(getRequest()));*/
+      String userId = UserSessUtil.getUserId(request);
+      userVo.setRegrId(userId);
+      /*currentUser = UserSessUtil.getUserId(getRequest());*/
 
-      currentUser = UserSessUtil.getUserId(getRequest());
-
-      userService.insertUser(userVo, currentUser);
+      userService.insertUser(userVo);
 
       System.out.println("userVo = " + userVo);
-      System.out.println("currentUser = " + currentUser);
+
 
     } catch (IllegalAccessError e) {
       model.addAttribute("errorMessage", "등록 중 에러가 발생하였습니다.");
@@ -107,10 +106,11 @@ public class UserController extends BaseController {
 
     List<UserVo> userLists = userService.userLists(userVo);
 
-    List<UserVo> userList = userService.userList(userVo, page);
+     /*List<UserVo> userList = userService.userList(userVo, page);*/
     page.setTotalSize(userService.userListCount(userVo, page));
 
-    model.addAttribute("userList", userList);
+    model.addAttribute("userLists", userLists);
+    /*model.addAttribute("userList", userList);*/
     model.addAttribute("s", userVo);
     model.addAttribute("p", page);
 

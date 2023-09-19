@@ -24,8 +24,10 @@
     <include refid="page.ADD_PAGE_SQL" />
   </select>
   <!--user 목록 조회 총 건수-->
-  <select id="userListCount" resultType="int">
-    <include refid="USER_BASIC" />
+  <select id="userListCount" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    FROM st_mngr
+    WHERE DEL_YN = 'N'
   </select>
 
 
@@ -41,7 +43,7 @@
     VALUES (#{userId}, #{userNm}, #{authGroupCd}, #{secretNum}, #{regDt}, #{modDt}, #{regrId},
             #{modrId}, #{delYn}, #{userDiv});
   </insert>
-
+<!--테스트용-->
   <select id="userLists" resultType="kr.co.baseprj.mgmt.userMgmt.UserVo">
     <include refid="USER_BASIC"/>
   </select>
